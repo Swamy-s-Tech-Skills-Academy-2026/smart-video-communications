@@ -31,11 +31,3 @@ In-depth design of specific components, APIs, and advanced workflows.
 ### Implementation Plan
 
 * [Tech Stack & Engineering Strategy](docs/03_Implementation-Plan.md)
-
-## ⚠️ Note on Code Implementation
-
-This repository focuses exclusively on **System Design Documentation** (High-Level Design and Low-Level Design specs).
-
-Actual code implementations (e.g., Python/FastAPI services, C#/.NET backends, Node.js signaling servers) are maintained in a dedicated repository within the `SwamysArchitectJourney-2026` organization:
-
-* `SwamysArchitectJourney-2026/VideoConferencing-System-Implementation`
