@@ -60,7 +60,7 @@ graph TD
         Auth[Azure AD / Auth Service]
     end
 
-    subgraph "Control Plane (.NET)"
+    subgraph "Control Plane (.NET 10 + Aspire 13)"
         Signal[Signaling Service]
         Redis[(Redis Presence)]
     end
