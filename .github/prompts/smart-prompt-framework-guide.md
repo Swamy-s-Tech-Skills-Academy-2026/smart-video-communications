@@ -1,6 +1,6 @@
 # S.M.A.R.T. Prompt Framework for GitHub Copilot Coding Agents
 
-**ArchitectJourney Edition** - Framework for creating high-quality coding agent instructions aligned with architectural excellence standards and progressive learning levels.
+**Smart Video Communications Edition** - Framework for creating high-quality coding agent instructions aligned with enterprise-grade video conferencing platform development standards.
 
 ---
 
@@ -9,7 +9,7 @@
 Use this framework to create highly effective coding agent instructions:
 
 ```text
-S - Specific Role Definition (Senior .NET Developer, DevOps Engineer, AI Architect, etc.)
+S - Specific Role Definition (Senior .NET Developer, WebRTC Engineer, AI Services Developer, etc.)
 M - Mission-Critical Requirements (What must be accomplished with measurable outcomes)
 A - Audience-Aware Communication (Team expertise level, architectural maturity, domain context)
 R - Response Format Control (Code structure, architecture patterns, documentation style)
@@ -18,14 +18,15 @@ T - Task-Oriented Constraints (Technology stack, architectural patterns, forbidd
 
 ---
 
-## 🏛️ **ArchitectJourney Alignment**
+## 🏛️ **Smart Video Communications Alignment**
 
 When creating prompts, consider:
 
-- **Learning Level Context**: Is this for Level 1-3 (foundational), Level 4-6 (enterprise), or Level 7-9 (strategic)?
-- **Domain Integration**: How does this task span across 13 reference domains?
-- **Architectural Patterns**: Which design/architecture patterns should be applied?
-- **Progressive Complexity**: Is the implementation scoped appropriately for the team's level?
+- **Domain Context**: Real-time video conferencing, WebRTC media streaming, AI-powered transcription/translation
+- **Architecture Patterns**: Microservices, SFU topology, P2P mesh, event-driven architecture
+- **Technology Stack**: .NET 10, .NET Aspire 13, SignalR, WebRTC, Python (FastAPI), Azure AKS
+- **Performance Requirements**: Media latency < 250ms (P95), join time < 2 seconds, packet loss < 2%
+- **Scalability**: Support 2,000 concurrent users initially, scale to 1B users
 
 ## 🏗️ **Advanced Problem Statement Template**
 
@@ -94,70 +95,74 @@ You are a [Specific Role] specializing in [Technology Stack] with expertise in [
 
 ## 🎭 **Role-Based Specialization Examples**
 
-### **For .NET/Azure Development:**
+### **For .NET/SignalR Development:**
 
 ```markdown
-ROLE: You are a Senior .NET Developer specializing in Azure Functions isolated worker model, Entity Framework Core, and microservices architecture
+ROLE: You are a Senior .NET Developer specializing in .NET 10, ASP.NET Core, SignalR, and real-time signaling architecture
 
-EXPERTISE FOCUS: Extension method limitations, Moq framework patterns, .NET 9 compatibility, Azure service integration
+EXPERTISE FOCUS: SignalR hubs, WebSocket connection management, Redis backplane scaling, async/await patterns, .NET Aspire 13 orchestration
 
-OUTPUT REQUIREMENTS: Production-ready C# code with comprehensive error handling, unit tests with proper mocking patterns, and enterprise-grade documentation
+OUTPUT REQUIREMENTS: Production-ready C# code with comprehensive error handling, SignalR hub implementations, unit tests with proper mocking patterns, and enterprise-grade documentation
 
 MANDATORY VALIDATION:
 - ✅ dotnet build --configuration Release (0 errors required)
 - ✅ dotnet test --configuration Release (0 failures required)
+- ✅ SignalR connection handling tested with Redis backplane
+- ✅ Async/await patterns properly implemented
+```
+
+### **For WebRTC/Media Plane Development:**
+
+```markdown
+ROLE: You are a Senior WebRTC Engineer specializing in real-time media streaming, SFU architecture, and WebRTC protocol implementation
+
+EXPERTISE FOCUS: Mediasoup integration, ICE/DTLS/SRTP protocols, TURN server configuration, adaptive bitrate streaming, simulcast
+
+OUTPUT REQUIREMENTS: Production-ready Node.js/C++ code for SFU, WebRTC client integration, media quality optimization, and comprehensive testing
+
+MANDATORY VALIDATION:
+- ✅ WebRTC connection establishment tested
+- ✅ Media latency < 250ms (P95) verified
+- ✅ Packet loss < 2% under load
+- ✅ SFU scaling and load balancing validated
+```
+
+### **For Python AI Services Development:**
+
+```markdown
+ROLE: You are a Senior Python Developer specializing in FastAPI, Azure AI Speech services, and real-time AI processing
+
+EXPERTISE FOCUS: FastAPI async endpoints, Azure Speech-to-Text streaming, real-time transcription, multi-language translation, consent handling
+
+OUTPUT REQUIREMENTS: Production-ready Python 3.11+ code with type hints, async/await patterns, comprehensive error handling, and AI service integration
+
+MANDATORY VALIDATION:
+- ✅ FastAPI endpoints tested with async operations
+- ✅ Azure Speech API integration validated
+- ✅ Real-time transcription latency < 500ms
+- ✅ Consent management properly implemented
 ```
 
 ### **For DevOps/Infrastructure:**
 
 ```markdown
-ROLE: You are a DevOps Engineer specializing in .NET application deployment, CI/CD pipelines, and Azure infrastructure
+ROLE: You are a DevOps Engineer specializing in Azure Kubernetes Service (AKS), .NET Aspire deployment, and CI/CD pipelines
 
-EXPERTISE FOCUS: Build automation, package management, framework migrations, container orchestration
+EXPERTISE FOCUS: AKS cluster management, .NET Aspire AppHost orchestration, GitHub Actions workflows, Bicep/Terraform IaC, container orchestration
 
-OUTPUT REQUIREMENTS: Build scripts, deployment configurations, infrastructure as code, and monitoring setup
+OUTPUT REQUIREMENTS: Build scripts, deployment configurations, infrastructure as code, monitoring setup, and GitOps workflows
 
 MANDATORY VALIDATION:
 - ✅ All build scripts execute successfully
 - ✅ Infrastructure templates validate without errors
 - ✅ Deployment processes complete end-to-end
-```
-
-### **For AI Agent & Intelligent Systems Development:**
-
-```markdown
-ROLE: You are a Senior AI Architect specializing in LLM-powered agent development, AI/ML system design, and intelligent workflow orchestration
-
-EXPERTISE FOCUS: 
-- Prompt engineering and agent reasoning frameworks
-- LLM integration patterns and RAG (Retrieval-Augmented Generation)
-- Agent evaluation metrics and observability
-- Responsible AI and guardrails implementation
-
-OUTPUT REQUIREMENTS:
-- Production-ready agent code with comprehensive error handling
-- Evaluation frameworks with clear success metrics
-- Tracing and observability for agent decisions
-- Security guardrails and input validation
-- Documentation with agent behavior specifications and limitations
-
-ARCHITECTURAL PATTERNS:
-- ReAct (Reasoning + Acting) for complex problem-solving
-- Chain-of-Thought for transparent agent reasoning
-- Tool integration with proper error handling
-- State management for multi-turn conversations
-
-MANDATORY VALIDATION:
-- ✅ Agent evaluation tests pass with defined metrics
-- ✅ Tracing logs captured for all critical decisions
-- ✅ No security vulnerabilities in prompt injection or model manipulation
-- ✅ Response quality meets baseline metrics across test dataset
+- ✅ Canary deployment strategy implemented
 ```
 
 ### **For Enterprise Architecture & System Design:**
 
 ```markdown
-ROLE: You are a Lead Enterprise Architect specializing in scalable microservices architecture, distributed systems design, and organizational technology strategy
+ROLE: You are a Lead Enterprise Architect specializing in scalable microservices architecture, distributed systems design, and cloud-native video conferencing platforms
 
 EXPERTISE FOCUS:
 - SOLID principles and architectural patterns (layered, hexagonal, event-driven)
@@ -169,15 +174,16 @@ EXPERTISE FOCUS:
 OUTPUT REQUIREMENTS:
 - Architecture Decision Records (ADRs) documenting trade-offs
 - System design diagrams with components and integration points
-- Reference implementations in multiple languages
+- Reference implementations in .NET 10 and Python
 - Migration strategies and cost optimization recommendations
-- Security, compliance, and operational considerations
+- Security, compliance (GDPR/CCPA), and operational considerations
 
 SUCCESS CRITERIA:
 - ✅ Architecture aligns with organizational constraints
 - ✅ Trade-offs clearly documented with reasoning
 - ✅ Scalability and resilience characteristics defined
 - ✅ Implementation examples demonstrate pattern application
+- ✅ Performance targets met (latency, packet loss, availability)
 ```
 
 ## 🚨 **Critical Constraint Guidelines**
@@ -185,38 +191,58 @@ SUCCESS CRITERIA:
 ### **Framework/Package Versions:**
 
 ```markdown
-- 🚨 CRITICAL: Use .NET 9 ONLY - DO NOT downgrade to .NET 8
-- ❌ DO NOT modify Directory.Packages.props
+- 🚨 CRITICAL: Use .NET 10 ONLY - DO NOT downgrade to .NET 8 or .NET 9
+- 🚨 CRITICAL: Use .NET Aspire 13 for orchestration
+- 🚨 CRITICAL: Use Python 3.11+ for AI services
+- ❌ DO NOT modify Directory.Packages.props without explicit approval
 - ❌ DO NOT downgrade package versions
+- ❌ DO NOT use .NET 9 or earlier versions
 ```
 
-### **File Modification Boundaries:**
+### **File and Folder Naming:**
 
 ```markdown
-- ❌ DO NOT modify [specific files]
-- ✅ ONLY modify [allowed areas]
+- 🚨 CRITICAL: Never start file or folder names with `00_`
+- ✅ REQUIRED: Always start numbered files/folders with `01_` or higher
+- ✅ Use consistent numbering sequence: `01_`, `02_`, `03_`, etc.
+- ❌ DO NOT create files like `00_Introduction.md` or `00_Workspace-Report.md`
+- ✅ DO create files like `01_Requirements.md` or `01_Project-Setup.md`
 ```
 
 ### **Build Requirements:**
 
 ```markdown
 When building, use: cd /path/to/project && dotnet build
-Ensure all projects target net9.0 framework
+Ensure all projects target net10.0 framework
+For Python services, ensure Python 3.11+ is used
+```
+
+### **Architecture Constraints:**
+
+```markdown
+- ✅ MUST follow microservices architecture per docs/04_Implementation-Plan.md
+- ✅ MUST use SignalR for real-time signaling (not raw WebSockets)
+- ✅ MUST use Redis for ephemeral state (room participants, presence)
+- ✅ MUST use PostgreSQL or Azure SQL for persistent metadata
+- ❌ DO NOT create shared databases between microservices
+- ❌ DO NOT bypass SignalR for signaling (use SignalR hubs)
 ```
 
 ## ✅ **Effective Instruction Patterns**
 
 ### **DO - Be Specific and Explicit:**
 
-- ✅ "Create IHttpRequestWrapper interface to avoid GetValues() extension method"
-- ✅ "Update tests to mock wrapper instead of HttpHeaders extension methods"
-- ✅ "Fix test data generation in TestDataBuilder.cs - check ZIP file structure"
+- ✅ "Create SignalR hub for meeting room signaling with Redis backplane support"
+- ✅ "Implement WebRTC connection establishment with ICE candidate exchange via SignalR"
+- ✅ "Add FastAPI endpoint for real-time transcription with Azure Speech API streaming"
+- ✅ "Create Entity Framework Core migration for Meeting entity with proper indexes"
 
 ### **DON'T - Be Vague:**
 
-- ❌ "Fix the tests"
+- ❌ "Fix the signaling"
 - ❌ "Make it work"
 - ❌ "Update the code"
+- ❌ "Add WebRTC support"
 
 ## 📝 **Constraint Language Examples**
 
@@ -225,18 +251,22 @@ Ensure all projects target net9.0 framework
 ```markdown
 🚨 ABSOLUTELY DO NOT modify Directory.Packages.props or downgrade any packages.
 
-The following packages MUST remain at their current .NET 9 versions:
-- Npgsql.EntityFrameworkCore.PostgreSQL: Version="9.0.3"
-- Microsoft.EntityFrameworkCore: Version="9.0.9"
+The following packages MUST remain at their current .NET 10 versions:
+- Microsoft.AspNetCore.SignalR: Latest .NET 10 compatible version
+- Microsoft.EntityFrameworkCore: Latest .NET 10 compatible version
+- StackExchange.Redis: Latest version
 
 CRITICAL: Any attempt to change these versions will require task restart.
+
+🚨 CRITICAL: Never create files or folders starting with `00_`. Always use `01_` or higher.
 ```
 
 ### **Weak Language That Doesn't Work:**
 
 ```markdown
-Please try to maintain .NET 9 compatibility
+Please try to maintain .NET 10 compatibility
 Prefer keeping current package versions
+Try to avoid using 00_ prefix
 ```
 
 ## 🎯 **Advanced Prompt Design Patterns**
@@ -248,7 +278,7 @@ SYSTEM LAYER:
 You are a [Specialist Role] with expertise in [Technology Stack] and [Domain Expertise].
 
 CONTEXT LAYER:  
-[Project context, current situation, business requirements]
+[Project context: Smart Video Communications platform, current situation, business requirements]
 
 TASK LAYER:
 [Specific implementation task with clear deliverables]
@@ -261,17 +291,21 @@ SPECIFICATION LAYER:
 
 ```markdown
 LOGIC FRAMEWORK:
-IF issue_type == "extension_method_mocking":
-THEN approach: Create wrapper interfaces to avoid Moq limitations
-AND include: Dependency injection setup and test updates
+IF issue_type == "signalr_scaling":
+THEN approach: Implement Redis backplane for SignalR scaling
+AND include: Connection management and reconnection handling
 
-ELIF issue_type == "package_compatibility":  
-THEN approach: Update implementation patterns, NOT package versions
-AND include: Code refactoring to maintain .NET 9 compatibility
+ELIF issue_type == "webrtc_connection":  
+THEN approach: Implement ICE candidate exchange via SignalR
+AND include: STUN/TURN server configuration and fallback logic
 
-ELIF issue_type == "build_failures":
-THEN approach: Install missing SDKs or fix code issues
-AND include: Detailed error analysis and resolution steps
+ELIF issue_type == "ai_transcription":
+THEN approach: Stream audio to Azure Speech API with consent handling
+AND include: Real-time transcription delivery via SignalR
+
+ELIF issue_type == "sfu_allocation":
+THEN approach: Implement Media Controller service for SFU allocation
+AND include: Load balancing and autoscaling logic
 ```
 
 ### **Progressive Refinement Pattern:**
@@ -279,10 +313,10 @@ AND include: Detailed error analysis and resolution steps
 ```markdown
 BASE PROMPT: [Core role and task definition]
 
-REFINEMENT 1: Add specific technical constraints
-REFINEMENT 2: Define output format requirements  
-REFINEMENT 3: Include quality standards and acceptance criteria
-REFINEMENT 4: Add monitoring and validation requirements
+REFINEMENT 1: Add specific technical constraints (.NET 10, SignalR, WebRTC)
+REFINEMENT 2: Define output format requirements (code structure, documentation)
+REFINEMENT 3: Include quality standards and acceptance criteria (latency, packet loss)
+REFINEMENT 4: Add monitoring and validation requirements (observability, testing)
 
 FINAL VALIDATION: Ensure all constraints are explicitly stated
 ```
@@ -299,6 +333,8 @@ OUTPUT REQUIREMENTS:
 - Consistent code style following project conventions
 - No explanatory comments in code - let the code be self-documenting
 - Include integration points and dependency injection setup
+- Follow async/await patterns for all I/O operations
+- Implement structured logging with correlation IDs
 ```
 
 ### **For Infrastructure Tasks:**
@@ -306,10 +342,11 @@ OUTPUT REQUIREMENTS:
 ```markdown
 OUTPUT REQUIREMENTS:
 - Valid configuration files (JSON/YAML/XML as specified)
-- Infrastructure as Code with proper variable definitions
+- Infrastructure as Code (Bicep/Terraform) with proper variable definitions
 - Deployment scripts with error handling and rollback procedures
-- Monitoring and alerting configurations
+- Monitoring and alerting configurations (Azure Monitor integration)
 - Documentation with setup and troubleshooting guides
+- .NET Aspire AppHost orchestration for local development
 ```
 
 ### **For Debugging Tasks:**
@@ -320,34 +357,35 @@ OUTPUT REQUIREMENTS:
 - Step-by-step resolution procedures
 - Test cases to validate the fix
 - Prevention strategies for similar issues
-- Performance impact assessment
+- Performance impact assessment (latency, packet loss)
+- Observability improvements (logging, tracing)
 ```
 
-## 🤖 **AI Agent Evaluation & Observability Framework**
+## 🤖 **AI Services Evaluation & Observability Framework**
 
-When designing AI agent tasks, include evaluation and observability requirements:
+When designing AI service tasks, include evaluation and observability requirements:
 
-### **AI Agent Evaluation Template:**
+### **AI Transcription Service Evaluation Template:**
 
 ```markdown
 ## EVALUATION FRAMEWORK
 
 ### Evaluation Metrics
-- **Accuracy**: Correctness of agent responses against ground truth (target: >95%)
-- **Latency**: Response time within acceptable bounds (target: <2000ms)
-- **Safety**: Adherence to guardrails and security constraints (target: 100%)
-- **Coherence**: Response clarity and logical flow (1-5 scale)
+- **Accuracy**: Transcription word error rate (target: <5%)
+- **Latency**: End-to-end transcription delay (target: <500ms)
+- **Language Support**: Multi-language transcription accuracy (target: >90% per language)
+- **Consent Compliance**: 100% consent verification before processing
 
 ### Test Dataset
-- **Size**: Minimum 50 diverse test cases covering edge cases
-- **Coverage**: Include normal operation, error conditions, and boundary scenarios
-- **Distribution**: Representative of production usage patterns
+- **Size**: Minimum 50 diverse audio samples covering edge cases
+- **Coverage**: Include normal speech, background noise, multiple languages, accents
+- **Distribution**: Representative of production meeting scenarios
 
 ### Success Criteria
-- Baseline accuracy exceeds target threshold
-- No security or safety violations across test dataset
+- Transcription accuracy exceeds target threshold
 - Latency remains within acceptable range
-- Response quality consistent across diverse inputs
+- All languages supported meet accuracy targets
+- Consent management properly enforced
 
 ### Evaluation Execution
 - Run evaluations against complete test dataset
@@ -356,32 +394,34 @@ When designing AI agent tasks, include evaluation and observability requirements
 - Validate changes don't degrade existing functionality
 ```
 
-### **AI Agent Tracing & Observability Template:**
+### **AI Services Tracing & Observability Template:**
 
 ```markdown
 ## TRACING & OBSERVABILITY REQUIREMENTS
 
 ### Trace Coverage
-- Agent decision points and reasoning steps
-- Tool invocations and results
-- Error handling and recovery attempts
-- Performance metrics (latency, token usage)
+- Audio stream ingestion and processing
+- Transcription generation and delivery
+- Translation service invocations
+- Consent verification and logging
+- Performance metrics (latency, accuracy, cost)
 
 ### Tracing Implementation
 - Structured logging with correlation IDs
 - OpenTelemetry instrumentation for observability
-- Trace storage and analysis tools
+- Azure Monitor integration for metrics and logs
 - Real-time monitoring dashboards
 
 ### Observable Signals
-- Agent state transitions and context changes
+- Transcription latency and accuracy
+- Service health and availability
 - Token usage and cost tracking
 - Error rates and failure patterns
 - User satisfaction and feedback signals
 
 ### Analysis & Improvement
 - Identify bottlenecks and failure modes
-- Detect drift in agent behavior
+- Detect drift in transcription quality
 - Measure business impact of improvements
 - Plan optimizations based on observed patterns
 ```
@@ -390,27 +430,33 @@ When designing AI agent tasks, include evaluation and observability requirements
 
 ### **Agent is working correctly when:**
 
-- ✅ It acknowledges constraints explicitly
+- ✅ It acknowledges constraints explicitly (.NET 10, file naming, architecture)
 - ✅ It asks clarifying questions about boundaries
-- ✅ It installs missing SDKs instead of downgrading
-- ✅ It focuses on code changes, not configuration changes
+- ✅ It references documentation (docs/01_Requirements.md, etc.)
+- ✅ It focuses on code changes following architectural patterns
 - ✅ It provides detailed progress updates
+- ✅ It implements proper async/await patterns
+- ✅ It includes SignalR/WebRTC best practices
 
 ### **Agent needs restart when:**
 
 - ❌ It immediately modifies forbidden files
 - ❌ It changes package versions without asking
-- ❌ It ignores explicit constraints
-- ❌ It takes overly broad approach to simple problems
+- ❌ It ignores explicit constraints (.NET 10, file naming)
+- ❌ It creates files with `00_` prefix
+- ❌ It takes wrong architectural approach (bypasses SignalR, creates shared DBs)
+- ❌ It ignores performance requirements (latency, packet loss)
 
 ## 🔄 **Agent Restart Protocol**
 
 ### **When to restart the coding agent:**
 
 - Agent modifies forbidden files (like Directory.Packages.props)
-- Agent downgrades package versions
-- Agent changes target framework
-- Agent takes wrong architectural approach
+- Agent downgrades package versions or framework
+- Agent changes target framework from .NET 10
+- Agent creates files/folders with `00_` prefix
+- Agent takes wrong architectural approach (bypasses SignalR, creates shared databases)
+- Agent ignores performance requirements
 
 ### **How to restart:**
 
@@ -418,86 +464,99 @@ When designing AI agent tasks, include evaluation and observability requirements
 2. Create new pull request with more explicit constraints
 3. Include specific examples of what went wrong
 4. Add stronger constraint language
+5. Reference relevant documentation files
 
-## 🏗️ **Cross-Domain Architecture Patterns**
+## 🏗️ **Smart Video Communications Architecture Patterns**
 
 When tasks span multiple architectural domains, apply these patterns:
 
-### **Pattern: Domain-Driven Design Integration**
+### **Pattern: Microservices Architecture for Video Conferencing**
 
 ```markdown
-ARCHITECTURAL PATTERN: Domain-Driven Design (DDD) with Ubiquitous Language
+ARCHITECTURAL PATTERN: Event-Driven Microservices for Real-Time Media
 
-DOMAINS INVOLVED:
-- Core Domain: [Main business capability]
-- Supporting Domain: [Shared services]
-- Generic Domain: [Infrastructure/libraries]
+SERVICES INVOLVED:
+- User Service: Auth, Profiles, Tenant Management
+- Meeting Service: Scheduling, Room Lifecycle, Settings
+- Signaling Service: Real-time negotiation, Presence
+- Media Controller: SFU allocation, Load Balancing
+- Recording Service: Stream ingestion, Transcoding
+- AI Services: Transcription, Translation, Insights
 
 IMPLEMENTATION REQUIREMENTS:
-- Clear bounded contexts with explicit boundaries
-- Shared kernel defined and documented
-- Anticorruption layers for external integrations
-- Value objects and aggregates properly designed
-- Repository pattern for data access
-- Domain events for cross-boundary communication
-
-QUALITY GATES:
-✅ Bounded contexts have clear interfaces
-✅ Ubiquitous language used consistently across code and docs
-✅ No circular dependencies between contexts
-✅ Integration tests validate context boundaries
-```
-
-### **Pattern: Microservices Architecture**
-
-```markdown
-ARCHITECTURAL PATTERN: Event-Driven Microservices
-
-CHARACTERISTICS:
-- Independent deployment and scaling
-- Asynchronous communication via events
+- Independent deployment and scaling per service
+- Asynchronous communication via events (Azure Service Bus)
 - Database per service (no shared databases)
-- API gateway for client communication
-- Service mesh for inter-service concerns
-
-IMPLEMENTATION REQUIREMENTS:
-- Event schema definition and versioning
-- Saga pattern for distributed transactions
-- Circuit breaker for failure handling
-- Service discovery and load balancing
+- SignalR for real-time signaling (not raw WebSockets)
+- Redis for ephemeral state (room participants, presence)
+- PostgreSQL/Azure SQL for persistent metadata
 - Distributed tracing across services
 - Monitoring and alerting per service
 
 QUALITY GATES:
 ✅ Services can be deployed independently
 ✅ Event contracts validated before deployment
-✅ Failure scenarios handled gracefully
+✅ Failure scenarios handled gracefully (Make before Break)
 ✅ End-to-end tracing captures cross-service flows
 ✅ No database coupling between services
+✅ Performance targets met (latency < 250ms, packet loss < 2%)
 ```
 
-### **Pattern: Hexagonal Architecture (Ports & Adapters)**
+### **Pattern: Real-Time Signaling with SignalR**
 
 ```markdown
-ARCHITECTURAL PATTERN: Hexagonal (Ports & Adapters) - Isolate Business Logic
+ARCHITECTURAL PATTERN: SignalR Hub Architecture for WebRTC Signaling
 
-STRUCTURE:
-- Core: Pure business logic (domain models, use cases)
-- Ports: Interfaces defining system boundaries
-- Adapters: Implementations of ports (frameworks, databases, APIs)
+CHARACTERISTICS:
+- SignalR hubs for WebSocket abstraction
+- Redis backplane for horizontal scaling
+- Connection management and reconnection handling
+- ICE candidate exchange via SignalR
+- SDP offer/answer exchange
+- Presence and participant management
 
 IMPLEMENTATION REQUIREMENTS:
-- Business logic has zero framework dependencies
-- Ports define contracts clearly
-- Multiple adapter implementations possible
-- Testing possible without external dependencies
-- Clear separation of concerns
+- SignalR hub per domain (MeetingHub, SignalingHub)
+- Redis backplane configuration for scaling
+- Connection state management
+- Reconnection logic with exponential backoff
+- Message serialization (JSON)
+- Authentication/authorization per connection
 
 QUALITY GATES:
-✅ Core domain testable in isolation
-✅ Framework changes don't affect business logic
-✅ Adapter implementations are interchangeable
-✅ No circular dependencies
+✅ SignalR connections scale horizontally with Redis
+✅ Reconnection handled gracefully
+✅ ICE candidates exchanged successfully
+✅ Presence updates in real-time
+✅ Connection failures don't break meetings
+```
+
+### **Pattern: WebRTC Media Plane Architecture**
+
+```markdown
+ARCHITECTURAL PATTERN: SFU (Selective Forwarding Unit) for Media Routing
+
+CHARACTERISTICS:
+- Mediasoup for SFU implementation
+- Dynamic topology switching (P2P ↔ SFU)
+- Adaptive bitrate streaming
+- Simulcast for large groups
+- TURN server for NAT traversal
+
+IMPLEMENTATION REQUIREMENTS:
+- Mediasoup integration on Kubernetes
+- Media Controller for SFU allocation
+- Load balancing across SFU instances
+- ICE/DTLS/SRTP protocol implementation
+- HTTP tunneling fallback for restrictive networks
+- Quality metrics collection (latency, packet loss)
+
+QUALITY GATES:
+✅ Media latency < 250ms (P95)
+✅ Packet loss < 2%
+✅ Dynamic topology switching works seamlessly
+✅ SFU autoscaling responds to load
+✅ TURN server handles NAT traversal
 ```
 
 ## 📋 **Universal PR Success Template**
@@ -508,6 +567,7 @@ Include this template in EVERY coding agent PR for consistent validation:
 ## 🎯 MANDATORY SUCCESS CRITERIA (NON-NEGOTIABLE)
 
 ### Build Requirements
+
 ```powershell
 # MUST PASS: Full solution build with zero errors
 dotnet build --configuration Release --verbosity normal
@@ -522,6 +582,13 @@ dotnet test --configuration Release --logger "console;verbosity=normal"
 # Expected Result: "Test Run Successful. Total tests: X, Passed: X, Failed: 0, Skipped: 0"
 ```
 
+### Performance Requirements (if applicable)
+
+- ✅ Media latency < 250ms (P95) verified
+- ✅ Packet loss < 2% under load
+- ✅ Join time < 2 seconds
+- ✅ Signaling availability 99.9%
+
 ## 📋 FINAL CHECKLIST
 
 Before marking this PR ready for review:
@@ -529,38 +596,46 @@ Before marking this PR ready for review:
 - [ ] ✅ `dotnet build` succeeds with 0 errors across entire solution
 - [ ] ✅ `dotnet test` passes with 0 failures across all test projects
 - [ ] ✅ All original issues resolved completely
-- [ ] ✅ No package downgrades or framework changes
+- [ ] ✅ No package downgrades or framework changes (.NET 10 maintained)
+- [ ] ✅ No files/folders created with `00_` prefix
 - [ ] ✅ All existing functionality preserved
 - [ ] ✅ Production-ready error handling implemented
+- [ ] ✅ Async/await patterns properly used
+- [ ] ✅ Structured logging with correlation IDs implemented
+- [ ] ✅ Performance targets met (if applicable)
 
 **CRITICAL**: Do not mark this PR as ready for review until ALL build and test validations pass successfully.
 
-```
+---
 
-## 🚀 **TraceMind-Specific S.M.A.R.T. Example**
+## 🚀 **Smart Video Communications S.M.A.R.T. Example**
 
 ```markdown
-ROLE: You are a Senior Enterprise Architect specializing in AI-powered root cause analysis systems, Azure cloud architecture, and .NET Aspire microservices orchestration
+ROLE: You are a Senior .NET Developer specializing in real-time video conferencing systems, SignalR signaling architecture, and .NET Aspire microservices orchestration
 
-MISSION: Complete the TraceMind RCA Portal - an enterprise-grade, event-driven AI-powered RCA copilot for incident analysis using .NET 9, Blazor Web App, Azure Functions, PostgreSQL with pgvector, and Azure OpenAI GPT-5-chat
+MISSION: Implement the Signaling Service - an enterprise-grade, real-time signaling service for WebRTC connection establishment using .NET 10, SignalR, Redis backplane, and Azure AKS deployment
 
 AUDIENCE: Development team with expertise in:
-- .NET 9, Blazor Web App (Server + WASM modes), and Azure Functions
-- Event-driven architecture with Azure Service Bus
-- Azure cloud services (OpenAI GPT-5-chat, Blob Storage, Service Bus, AI Search)
-- PostgreSQL with pgvector extensions and YARP API Gateway
+- .NET 10, ASP.NET Core, and SignalR
+- Real-time communication patterns
+- Azure cloud services (Redis, Service Bus, Key Vault)
+- Microservices architecture and .NET Aspire 13
 
 RESPONSE FORMAT:
-- Production-ready code with comprehensive error handling
+- Production-ready C# code with comprehensive error handling
+- SignalR hub implementation with Redis backplane
 - Azure Bicep infrastructure templates for automated deployment
 - .NET Aspire AppHost orchestration for local development
 - Enterprise-grade documentation with architecture diagrams
 
 TASK CONSTRAINTS:
-- 🚨 CRITICAL: Use .NET 9 ONLY - DO NOT downgrade to .NET 8
-- Architecture: TraceMind.AppHost, TraceMind.ApiGateway, TraceMind.BlazorApp, etc.
-- Quality Standards: Zero build warnings, 100% test pass rate
-- Technology Stack: .NET 9 Aspire with microservices orchestration
+- 🚨 CRITICAL: Use .NET 10 ONLY - DO NOT downgrade to .NET 9 or .NET 8
+- 🚨 CRITICAL: Use SignalR for signaling (not raw WebSockets)
+- 🚨 CRITICAL: Never create files/folders with `00_` prefix - always use `01_` or higher
+- Architecture: Microservices with SignalR hubs, Redis backplane, PostgreSQL for metadata
+- Quality Standards: Zero build warnings, 100% test pass rate, latency < 250ms
+- Technology Stack: .NET 10, .NET Aspire 13, SignalR, Redis, PostgreSQL
+- Performance: Signaling availability 99.9%, connection establishment < 2 seconds
 ```
 
 ## 📚 **Best Practices Summary**
@@ -572,9 +647,10 @@ TASK CONSTRAINTS:
 5. **Plan for Failure**: Include restart protocols and troubleshooting
 6. **Validate Everything**: Always include build and test requirements
 7. **Document Thoroughly**: Ensure all decisions and constraints are recorded
-8. **Align with Architecture**: Reference learning levels and architectural patterns
+8. **Align with Architecture**: Reference documentation (docs/01-04) and architectural patterns
 9. **Enable Observability**: Include tracing and evaluation requirements
-10. **Progressive Complexity**: Scale scope to team's architectural maturity level
+10. **Performance First**: Always consider latency, packet loss, and scalability requirements
+11. **File Naming**: Never use `00_` prefix, always start with `01_` or higher
 
 ---
 
@@ -585,51 +661,52 @@ Use this checklist before submitting any coding agent task:
 ### **Role Definition**
 
 - [ ] Specific role/expertise clearly stated
-- [ ] Technology stack and frameworks identified
+- [ ] Technology stack and frameworks identified (.NET 10, SignalR, WebRTC, etc.)
 - [ ] Expected audience knowledge level documented
-- [ ] Domain context provided
+- [ ] Domain context provided (video conferencing, real-time media)
 
 ### **Task Clarity**
 
 - [ ] Mission and objectives clearly defined
-- [ ] Success criteria are measurable
+- [ ] Success criteria are measurable (latency, packet loss, availability)
 - [ ] Scope is appropriately sized
 - [ ] Priority and sequencing defined
 
 ### **Technical Requirements**
 
-- [ ] Framework and version constraints specified
-- [ ] Architectural patterns identified
+- [ ] Framework and version constraints specified (.NET 10, Python 3.11+)
+- [ ] Architectural patterns identified (microservices, SignalR, SFU)
 - [ ] Dependencies listed explicitly
-- [ ] Integration points documented
+- [ ] Integration points documented (SignalR, Redis, PostgreSQL, Azure services)
 
 ### **Constraints & Boundaries**
 
 - [ ] Forbidden actions explicitly listed (❌)
 - [ ] Required actions explicitly listed (✅)
 - [ ] File modification boundaries defined
+- [ ] File naming rules specified (no `00_` prefix)
 - [ ] Architectural decision constraints included
 
 ### **Quality & Validation**
 
 - [ ] Code quality standards specified
 - [ ] Build/test requirements included
-- [ ] Performance expectations defined
-- [ ] Security considerations addressed
+- [ ] Performance expectations defined (latency < 250ms, packet loss < 2%)
+- [ ] Security considerations addressed (Zero Trust, encryption, GDPR/CCPA)
 
-### **AI Agent Specifics** (if applicable)
+### **AI Services Specifics** (if applicable)
 
-- [ ] Evaluation metrics defined
+- [ ] Evaluation metrics defined (transcription accuracy, latency)
 - [ ] Test dataset requirements specified
 - [ ] Tracing requirements included
-- [ ] Safety guardrails documented
+- [ ] Consent management documented
 
 ### **Output Expectations**
 
 - [ ] Code format and style specified
 - [ ] Documentation requirements defined
 - [ ] Testing approach specified
-- [ ] Deployment considerations included
+- [ ] Deployment considerations included (.NET Aspire, AKS)
 
 ---
 
@@ -637,42 +714,36 @@ Use this checklist before submitting any coding agent task:
 
 Before submitting ANY coding agent PR or task completion:
 
-- [ ] ✅ All technical constraints acknowledged
+- [ ] ✅ All technical constraints acknowledged (.NET 10, file naming, architecture)
 - [ ] ✅ Success criteria clearly measurable
 - [ ] ✅ Build passes without errors/warnings
 - [ ] ✅ Tests pass with 0 failures
 - [ ] ✅ No forbidden files modified
-- [ ] ✅ Architectural patterns applied correctly
+- [ ] ✅ No files/folders created with `00_` prefix
+- [ ] ✅ Architectural patterns applied correctly (SignalR, microservices)
 - [ ] ✅ Documentation is complete and accurate
-- [ ] ✅ Evaluation metrics captured (for AI agents)
-- [ ] ✅ Tracing configured (for AI agents)
+- [ ] ✅ Performance targets met (if applicable)
 - [ ] ✅ Code review readiness criteria met
 
 ---
 
-## 🎓 **ArchitectJourney Learning Integration**
+## 🎓 **Smart Video Communications Documentation Integration**
 
-Align your coding agent tasks with the learning progression:
+Always reference the project documentation when creating prompts:
 
-### **For Levels 1-3 (Foundation & Patterns):**
+### **Documentation Flow:**
 
-- Focus on design pattern application
-- SOLID principles demonstration
-- Clean code and testing practices
-- Language-specific idioms and best practices
+1. **docs/01_Requirements.md** - Functional and non-functional requirements, SLOs
+2. **docs/02_System-Design-Overview.md** - High-level architecture, WebRTC fundamentals
+3. **docs/03_Detailed-Design.md** - Complete technical specifications (APIs, data models, security, workflows)
+4. **docs/04_Implementation-Plan.md** - Technology stack, microservices architecture, CI/CD
 
-### **For Levels 4-6 (Enterprise & Cloud):**
+### **When Creating Prompts:**
 
-- Microservices architecture implementation
-- Cloud platform integration (Azure, AWS, GCP)
-- DevOps and CI/CD pipeline design
-- System scalability and resilience patterns
+- ✅ Reference specific documentation sections
+- ✅ Align with documented architecture patterns
+- ✅ Follow technology stack from docs/04_Implementation-Plan.md
+- ✅ Meet requirements from docs/01_Requirements.md
+- ✅ Implement designs from docs/03_Detailed-Design.md
 
-### **For Levels 7-9 (Strategy & AI/ML):**
-
-- AI/ML system architecture
-- Enterprise security and governance
-- Strategic technology decisions
-- Leadership and organizational transformation
-
-This framework ensures consistent, high-quality results from GitHub Copilot coding agents while preventing common issues and maintaining enterprise-grade architectural standards aligned with ArchitectJourney learning levels.
+This framework ensures consistent, high-quality results from GitHub Copilot coding agents while preventing common issues and maintaining enterprise-grade architectural standards for the Smart Video Communications platform.
