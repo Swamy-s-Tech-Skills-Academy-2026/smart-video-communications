@@ -369,7 +369,7 @@ This repository follows a structured documentation flow for implementation:
 ```
 01_Requirements.md (Requirements Specification)
     ↓
-01_System-Design-Overview.md (This Document - High-Level Architecture)
+02_System-Design-Overview.md (This Document - High-Level Architecture)
     ↓
 02_Detailed-Design.md (Complete Architecture & Implementation)
     ↓
