@@ -1,9 +1,14 @@
-# Cursor Rules for Smart Video Communications
+---
+description: Project rules and guidelines for Smart Video Communications platform
+globs: ['**/*']
+alwaysApply: true
+---
+
+# Smart Video Communications - Project Rules
 
 ## Project Overview
 
 Smart Video Communications is a cloud-native video conferencing platform built with:
-
 - **.NET 10** for signaling and APIs
 - **.NET Aspire 13** for orchestration
 - **Python** for AI services
@@ -14,19 +19,16 @@ The platform supports real-time audio/video, SFU integration, recording, transcr
 
 ## Documentation Structure
 
-The project follows a structured documentation flow:
+The project follows a structured documentation flow. Always reference these documents when making architectural or design decisions:
 
-1. **01_Requirements.md** - Functional and non-functional requirements, SLOs
-2. **02_System-Design-Overview.md** - High-level architecture, WebRTC fundamentals
-3. **03_Detailed-Design.md** - Complete technical specifications (APIs, data models, security, workflows)
-4. **04_Implementation-Plan.md** - Technology stack, microservices architecture, CI/CD
-
-**Always reference these documents when making architectural or design decisions.**
+1. **docs/01_Requirements.md** - Functional and non-functional requirements, SLOs
+2. **docs/02_System-Design-Overview.md** - High-level architecture, WebRTC fundamentals
+3. **docs/03_Detailed-Design.md** - Complete technical specifications (APIs, data models, security, workflows)
+4. **docs/04_Implementation-Plan.md** - Technology stack, microservices architecture, CI/CD
 
 ## Technology Stack
 
 ### Control Plane (Signaling & APIs)
-
 - **Language/Framework**: .NET 10 (ASP.NET Core)
 - **Orchestration**: .NET Aspire 13
 - **Real-Time Engine**: SignalR
@@ -34,20 +36,17 @@ The project follows a structured documentation flow:
 - **Authentication**: Azure AD / B2C (OAuth2/OIDC)
 
 ### Media Plane
-
 - **SFU**: Mediasoup (Node.js/C++) on Kubernetes
 - **TURN Server**: Coturn on VM Scale Sets
 - **Protocols**: WebRTC (ICE, DTLS, SRTP) over UDP (primary), TCP/TLS (fallback)
 
 ### AI Services
-
 - **Runtime**: Python 3.11+
 - **Framework**: FastAPI
 - **Libraries**: `azure-cognitiveservices-speech`, `openai`, `langchain`
 - **Deployment**: Kubernetes Pods (autoscaled)
 
 ### Infrastructure
-
 - **Orchestration**: Azure Kubernetes Service (AKS)
 - **IaC**: Bicep or Terraform (via Azure Developer CLI)
 - **Secrets**: Azure Key Vault with Managed Identities
@@ -55,26 +54,22 @@ The project follows a structured documentation flow:
 ## Architecture Patterns
 
 ### Microservices
-
 The system is decomposed into domain-specific services:
-
-- **User Service**: Auth, Profiles, Tenant Management
-- **Meeting Service**: Scheduling, Room Lifecycle, Settings
-- **Signaling Service**: Real-time negotiation, Presence
-- **Media Controller**: SFU allocation, Load Balancing
-- **Recording Service**: Stream ingestion, Transcoding, Uploads
-- **Notification Service**: Email, Push, SMS
-- **Analytics Service**: Telemetry ingestion, Aggregation
+- **User Service**: Auth, Profiles, Tenant Management (.NET 10 API, SQL)
+- **Meeting Service**: Scheduling, Room Lifecycle, Settings (.NET 10 API, SQL)
+- **Signaling Service**: Real-time negotiation, Presence (SignalR, Redis)
+- **Media Controller**: SFU allocation, Load Balancing (Node.js/Go)
+- **Recording Service**: Stream ingestion, Transcoding, Uploads (Python/FFmpeg, Blob)
+- **Notification Service**: Email, Push, SMS (Azure Functions)
+- **Analytics Service**: Telemetry ingestion, Aggregation (Spark/Flink, Kafka)
 
 ### Scalability Patterns
-
 - **Small groups (≤5)**: P2P Mesh topology
 - **Medium groups (5-50)**: SFU topology
 - **Large groups (50+)**: SFU with simulcast
 - **Live streaming**: CDN-based (HLS/DASH) for millions of viewers
 
 ### Security
-
 - **Zero Trust** model - every connection authenticated
 - **TLS 1.3** for all signaling
 - **DTLS/SRTP** for media encryption
@@ -84,20 +79,17 @@ The system is decomposed into domain-specific services:
 ## Key Requirements
 
 ### Performance
-
 - Media latency (P95): < 250ms
 - Join time: < 2 seconds
 - Packet loss: < 2%
 - Signaling availability: 99.9%
 
 ### Scalability
-
 - Initial: 2,000 concurrent users per hour
 - Future: 1 billion users, 100 million daily calls
 - Auto-scaling based on load
 
 ### Security & Compliance
-
 - GDPR/CCPA compliant
 - Explicit consent for recording/AI processing
 - Data residency controls
@@ -106,7 +98,6 @@ The system is decomposed into domain-specific services:
 ## Coding Standards
 
 ### .NET Code
-
 - Use **.NET 10** features and patterns
 - Follow **ASP.NET Core** best practices
 - Use **SignalR** for real-time communication
@@ -115,7 +106,6 @@ The system is decomposed into domain-specific services:
 - Follow **SOLID principles**
 
 ### Python Code (AI Services)
-
 - Use **Python 3.11+**
 - **FastAPI** for API endpoints
 - **Type hints** for all functions
@@ -123,7 +113,6 @@ The system is decomposed into domain-specific services:
 - Proper **error handling** and logging
 
 ### API Design
-
 - RESTful APIs for management operations
 - WebSocket/SignalR for real-time signaling
 - Follow OpenAPI/Swagger specifications
@@ -131,7 +120,6 @@ The system is decomposed into domain-specific services:
 - Implement rate limiting
 
 ### Database
-
 - Use **Entity Framework Core** for .NET
 - **PostgreSQL** or **Azure SQL** for metadata
 - **Redis** for ephemeral state (room participants, presence)
@@ -139,7 +127,6 @@ The system is decomposed into domain-specific services:
 - Use **connection pooling**
 
 ### Error Handling
-
 - Use structured exception handling
 - Return appropriate HTTP status codes
 - Log errors with correlation IDs
@@ -147,44 +134,22 @@ The system is decomposed into domain-specific services:
 - Provide meaningful error messages (without exposing internals)
 
 ### Logging
-
 - Use structured logging (JSON format)
 - Include correlation IDs for request tracking
 - Log levels: DEBUG, INFO, WARN, ERROR
 - Use **Serilog** or similar for .NET
 - Centralized logging via Azure Monitor
 
-## File Structure Expectations
-
-```
-smart-video-communications/
-├── docs/                    # Documentation
-│   ├── 01_Requirements.md
-│   ├── 02_System-Design-Overview.md
-│   ├── 03_Detailed-Design.md
-│   ├── 04_Implementation-Plan.md
-│   └── Implementation-Readiness-Assessment.md
-├── src/                     # Source code
-│   ├── Services/           # Microservices
-│   ├── Shared/             # Shared libraries
-│   └── Infrastructure/     # Infrastructure code
-├── tests/                   # Test projects
-├── .cursor/                 # Cursor rules
-└── README.md
-```
-
 ## Development Guidelines
 
 ### When Implementing Features
-
 1. **Check requirements** in `docs/01_Requirements.md`
 2. **Review architecture** in `docs/02_System-Design-Overview.md`
 3. **Follow detailed design** in `docs/03_Detailed-Design.md`
 4. **Use tech stack** from `docs/04_Implementation-Plan.md`
 
 ### When Creating APIs
-
-- Define endpoints in `03_Detailed-Design.md` Part A
+- Define endpoints per `docs/03_Detailed-Design.md` Part A
 - Use proper HTTP methods (GET, POST, PUT, DELETE)
 - Include request/response schemas
 - Implement authentication/authorization
@@ -192,23 +157,20 @@ smart-video-communications/
 - Document with OpenAPI/Swagger
 
 ### When Working with Data
-
-- Follow data models in `03_Detailed-Design.md` Part F-A
+- Follow data models in `docs/03_Detailed-Design.md` Part F-A
 - Use Redis for ephemeral state (room participants, presence)
 - Use PostgreSQL/SQL for persistent data
 - Implement proper indexes
 - Consider sharding for scale
 
 ### When Implementing Real-Time Features
-
 - Use **SignalR** for signaling
-- Follow WebSocket events in `03_Detailed-Design.md` Part F-B
+- Follow WebSocket events in `docs/03_Detailed-Design.md` Part F-B
 - Implement proper connection management
 - Handle reconnection scenarios
 - Use Redis backplane for SignalR scaling
 
 ### When Working with Media
-
 - Use **WebRTC** for peer-to-peer connections
 - Implement **SFU** for larger groups
 - Support **STUN/TURN** for NAT traversal
@@ -216,7 +178,6 @@ smart-video-communications/
 - Handle dynamic switching (P2P ↔ SFU)
 
 ### When Implementing AI Features
-
 - Use **Python** workers for AI processing
 - Stream audio to Azure Speech API
 - Implement real-time transcription
@@ -226,28 +187,24 @@ smart-video-communications/
 ## Testing Requirements
 
 ### Unit Tests
-
 - Minimum 80% code coverage
 - Test all business logic
 - Mock external dependencies
 - Use xUnit for .NET, pytest for Python
 
 ### Integration Tests
-
 - Test API endpoints
 - Test database interactions
 - Test SignalR hubs
 - Test Redis operations
 
 ### Load Tests
-
 - Use Python + aiortc for synthetic load testing
 - Test with thousands of concurrent users
 - Verify SFU autoscaling
 - Measure latency and packet loss
 
 ### Chaos Engineering
-
 - Test pod failures
 - Test network latency/jitter
 - Test Redis outages
@@ -256,7 +213,6 @@ smart-video-communications/
 ## Deployment
 
 ### CI/CD
-
 - Use **GitHub Actions** for CI/CD
 - **GitOps** approach (ArgoCD/Flux)
 - **Canary deployments** (5% traffic initially)
@@ -264,7 +220,6 @@ smart-video-communications/
 - Static analysis (SonarQube)
 
 ### Infrastructure
-
 - Use **Bicep** or **Terraform** for IaC
 - Deploy to **Azure Kubernetes Service (AKS)**
 - Use **Azure Container Registry (ACR)** for images
@@ -282,14 +237,12 @@ smart-video-communications/
 ## Common Patterns
 
 ### Authentication Flow
-
 1. User logs in via Azure AD/B2C
 2. Gets ID Token
 3. Exchanges for short-lived Join Token (5-10 minutes)
 4. Uses Join Token to connect to meeting
 
 ### Meeting Join Flow
-
 1. Client requests join via REST API
 2. Server validates token and capacity
 3. Returns signaling token and ICE servers
@@ -297,7 +250,6 @@ smart-video-communications/
 5. Client establishes WebRTC connection (P2P or SFU)
 
 ### Recording Flow
-
 1. SFU streams RTP packets to Logger Service
 2. Logger buffers and writes chunks to temp storage
 3. On meeting end, File Creator merges chunks
@@ -321,11 +273,10 @@ smart-video-communications/
 ## Questions to Ask
 
 When implementing features, always consider:
-
-- Does this meet the requirements in `01_Requirements.md`?
-- Does this follow the architecture in `02_System-Design-Overview.md`?
-- Are there detailed specs in `03_Detailed-Design.md`?
-- Is this using the tech stack from `04_Implementation-Plan.md`?
+- Does this meet the requirements in `docs/01_Requirements.md`?
+- Does this follow the architecture in `docs/02_System-Design-Overview.md`?
+- Are there detailed specs in `docs/03_Detailed-Design.md`?
+- Is this using the tech stack from `docs/04_Implementation-Plan.md`?
 - Does this handle errors gracefully?
 - Is this properly logged and monitored?
 - Does this meet security requirements?
@@ -334,7 +285,6 @@ When implementing features, always consider:
 ---
 
 **Remember**: This is an enterprise-grade, production-ready system. Always prioritize:
-
 1. **Reliability** - System must be highly available
 2. **Performance** - Low latency is critical for real-time media
 3. **Security** - Zero Trust, encryption, compliance
