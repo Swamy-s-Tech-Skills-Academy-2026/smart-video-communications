@@ -1,12 +1,12 @@
 ---
 learning_level: "Advanced"
-prerequisites: ["./01_System-Design-Overview-Part1-D.md"]
+prerequisites: ["./01_System-Design-Overview.md"]
 estimated_time: "25 minutes"
 learning_objectives:
   - "Define the REST/gRPC API surface for the video conferencing system"
   - "Design the database schema and relationships"
 related_topics:
-  builds_upon: ["./01_System-Design-Overview-Part1-D.md"]
+  builds_upon: ["./01_System-Design-Overview.md"]
   enables: ["./02_Detailed-Design-Part1-B.md"]
 ---
 

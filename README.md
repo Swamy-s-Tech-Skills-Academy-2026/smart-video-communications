@@ -10,10 +10,7 @@ The system design and implementation details are documented in the `docs/` folde
 
 Foundational concepts, requirements, and high-level architecture.
 
-* [Requirements Analysis & Capacity Estimation](docs/01_System-Design-Overview-Part1-A.md)
-* [High-Level Architecture & Data Layer](docs/01_System-Design-Overview-Part1-B.md)
-* [Concurrency, Signaling & WebRTC Fundamentals](docs/01_System-Design-Overview-Part1-C.md)
-* [Deep Dive: Transport Protocols (TCP/UDP/RTP)](docs/01_System-Design-Overview-Part1-D.md)
+* [System Design Overview: AI-Enhanced Video Conferencing](docs/01_System-Design-Overview.md)
 
 ### Phase 2: Detailed Design & Architecture
 
