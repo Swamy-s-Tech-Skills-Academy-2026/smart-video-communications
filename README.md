@@ -16,7 +16,7 @@ Complete functional and non-functional requirements specification.
 
 Foundational concepts, requirements, and high-level architecture.
 
-* [System Design Overview: AI-Enhanced Video Conferencing](docs/01_System-Design-Overview.md)
+* [System Design Overview: AI-Enhanced Video Conferencing](docs/02_System-Design-Overview.md)
 
 ### Phase 2: Detailed Design & Architecture
 
@@ -27,3 +27,7 @@ Comprehensive technical specifications covering all aspects of the system design
 ### Implementation Plan
 
 * [Tech Stack & Engineering Strategy](docs/03_Implementation-Plan.md)
+
+### Additional Resources
+
+* [Implementation Readiness Assessment](docs/05_Implementation-Readiness-Assessment.md)

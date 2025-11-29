@@ -458,7 +458,7 @@
 
 ## References
 
-- [System Design Overview](./01_System-Design-Overview.md)
+- [System Design Overview](./02_System-Design-Overview.md)
 - [Detailed Design](./02_Detailed-Design.md)
 - [Implementation Plan](./03_Implementation-Plan.md)
 

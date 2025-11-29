@@ -1,6 +1,6 @@
 ---
 learning_level: "Advanced"
-prerequisites: ["./01_System-Design-Overview.md"]
+prerequisites: ["./02_System-Design-Overview.md"]
 estimated_time: "180 minutes"
 learning_objectives:
   - "Define the REST/gRPC API surface and database schema"
@@ -12,7 +12,7 @@ learning_objectives:
   - "Architect advanced workflows including dynamic switching and AI integration"
   - "Design infrastructure for massive scale and analytics"
 related_topics:
-  builds_upon: ["./01_System-Design-Overview.md"]
+  builds_upon: ["./02_System-Design-Overview.md"]
   enables: ["./03_Implementation-Plan.md"]
 ---
 
