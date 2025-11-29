@@ -1,13 +1,13 @@
 ---
 learning_level: "Advanced"
-prerequisites: ["./02_Detailed-Design.md"]
+prerequisites: ["./03_Detailed-Design.md"]
 estimated_time: "20 minutes"
 learning_objectives:
   - "Select the appropriate Technology Stack for Signaling and Media"
   - "Design a Microservices architecture for the Control Plane"
   - "Define the CI/CD and Testing strategy for real-time systems"
 related_topics:
-  builds_upon: ["./02_Detailed-Design.md"]
+  builds_upon: ["./03_Detailed-Design.md"]
   enables: []
 ---
 

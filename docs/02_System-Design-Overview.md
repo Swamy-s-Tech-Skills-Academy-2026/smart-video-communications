@@ -11,7 +11,7 @@ learning_objectives:
   - "Analyze Transport Layer protocols for real-time media"
 related_topics:
   builds_upon: ["./01_Requirements.md"]
-  enables: ["./02_Detailed-Design.md"]
+  enables: ["./03_Detailed-Design.md"]
 ---
 
 # System Design Overview: AI-Enhanced Video Conferencing
@@ -344,7 +344,7 @@ This overview document provides the foundation for system design. For implementa
 
 A comprehensive document covering all detailed design aspects:
 
-* **[Detailed Design: Complete Architecture & Implementation](./02_Detailed-Design.md)** - Complete technical specifications including:
+* **[Detailed Design: Complete Architecture & Implementation](./03_Detailed-Design.md)** - Complete technical specifications including:
   - API Design & Data Models
   - Sequence Diagrams & Capacity Planning
   - Scalability Patterns (Mesh/SFU/MCU)
@@ -358,7 +358,7 @@ A comprehensive document covering all detailed design aspects:
 
 For implementation planning and execution:
 
-- **[Tech Stack & Engineering Strategy](./03_Implementation-Plan.md)** - Technology selection, microservices architecture, and CI/CD strategy
+- **[Tech Stack & Engineering Strategy](./04_Implementation-Plan.md)** - Technology selection, microservices architecture, and CI/CD strategy
 
 ---
 
@@ -371,7 +371,7 @@ This repository follows a structured documentation flow for implementation:
     ↓
 02_System-Design-Overview.md (This Document - High-Level Architecture)
     ↓
-02_Detailed-Design.md (Complete Architecture & Implementation)
+03_Detailed-Design.md (Complete Architecture & Implementation)
     ↓
-03_Implementation-Plan.md (Tech Stack & Strategy)
+04_Implementation-Plan.md (Tech Stack & Strategy)
 ```

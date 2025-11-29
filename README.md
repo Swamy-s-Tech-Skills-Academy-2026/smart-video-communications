@@ -22,12 +22,26 @@ Foundational concepts, requirements, and high-level architecture.
 
 Comprehensive technical specifications covering all aspects of the system design.
 
-* [Detailed Design: Complete Architecture & Implementation](docs/02_Detailed-Design.md)
+* [Detailed Design: Complete Architecture & Implementation](docs/03_Detailed-Design.md)
 
 ### Implementation Plan
 
-* [Tech Stack & Engineering Strategy](docs/03_Implementation-Plan.md)
+* [Tech Stack & Engineering Strategy](docs/04_Implementation-Plan.md)
 
 ### Additional Resources
 
-* [Implementation Readiness Assessment](docs/05_Implementation-Readiness-Assessment.md)
+* [Implementation Readiness Assessment](docs/Implementation-Readiness-Assessment.md)
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+Copyright (c) 2025 **Swamy's Tech Skills Academy 2026**
+
+See the [LICENSE](LICENSE) file for full details.
+
+---
+
+> 🧠 **Smart Video Communications** — Designed and maintained by *Viswanatha Swamy P K*  
+> Empowering developers to evolve into visionary architects and technical leaders.  
+> © 2025 Swamy's Tech Skills Academy 2026

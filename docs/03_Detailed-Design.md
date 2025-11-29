@@ -13,7 +13,7 @@ learning_objectives:
   - "Design infrastructure for massive scale and analytics"
 related_topics:
   builds_upon: ["./02_System-Design-Overview.md"]
-  enables: ["./03_Implementation-Plan.md"]
+  enables: ["./04_Implementation-Plan.md"]
 ---
 
 # Detailed Design: Complete Architecture & Implementation
@@ -851,5 +851,5 @@ At massive scale, a single database technology or cloud provider might not suffi
 
 This detailed design document provides comprehensive technical specifications for all aspects of the system. To proceed with implementation:
 
-- **[Tech Stack & Engineering Strategy](./03_Implementation-Plan.md)** - Technology selection, microservices architecture, and CI/CD strategy
+- **[Tech Stack & Engineering Strategy](./04_Implementation-Plan.md)** - Technology selection, microservices architecture, and CI/CD strategy
 
