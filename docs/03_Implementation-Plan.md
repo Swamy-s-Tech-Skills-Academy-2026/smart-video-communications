@@ -19,8 +19,10 @@ To build a scalable, enterprise-grade video conferencing platform, we choose tec
 
 ### A. Control Plane (Signaling & APIs)
 
-* **Language/Framework**: **.NET 8 (ASP.NET Core)**.
+* **Language/Framework**: **.NET 10 (ASP.NET Core)**.
   * *Why*: High performance, excellent WebSocket support (SignalR), strong typing, and enterprise ecosystem.
+* **Orchestration**: **.NET Aspire 13**.
+  * *Why*: Cloud-native application model for building observable, distributed applications. Simplifies local development and Azure deployment.
 * **Real-Time Engine**: **SignalR**.
   * *Why*: Abstracts WebSocket complexity, handles connection management, fallbacks, and scaling (via Redis Backplane).
 * **Database**:
@@ -42,7 +44,7 @@ To build a scalable, enterprise-grade video conferencing platform, we choose tec
 
 * **Orchestration**: **Azure Kubernetes Service (AKS)**.
   * *Node Pools*: Separate pools for Control Plane (General Purpose) and Media Plane (Compute/Network Optimized).
-* **Infrastructure as Code (IaC)**: **Bicep** or **Terraform**.
+* **Infrastructure as Code (IaC)**: **Bicep** or **Terraform** (managed via **Azure Developer CLI (`azd`)**).
 * **Secrets Management**: **Azure Key Vault** with Managed Identities.
 
 ## 2. Microservices Architecture
@@ -51,8 +53,8 @@ The system is decomposed into domain-specific services to allow independent scal
 
 | Service | Responsibility | Tech Stack |
 | :--- | :--- | :--- |
-| **User Service** | Auth, Profiles, Tenant Mgmt | .NET API, SQL |
-| **Meeting Service** | Scheduling, Room Lifecycle, Settings | .NET API, SQL |
+| **User Service** | Auth, Profiles, Tenant Mgmt | .NET 10 API, SQL |
+| **Meeting Service** | Scheduling, Room Lifecycle, Settings | .NET 10 API, SQL |
 | **Signaling Service** | Real-time negotiation, Presence | SignalR, Redis |
 | **Media Controller** | Orchestrates SFU allocation, Load Balancing | Node.js/Go |
 | **Recording Service** | Ingests streams, Transcodes, Uploads | Python/FFmpeg, Blob |

@@ -55,6 +55,12 @@ We employ a multi-layer monitoring approach to capture system health and user ex
   Signaling → Redis → SFU.
 * Identify bottlenecks in room creation or media negotiation.
 
+### D. Local Observability (.NET Aspire Dashboard)
+
+* **Tool**: **.NET Aspire Dashboard**.
+* **Usage**: Provides a real-time view of logs, traces, and metrics during local development and testing.
+* **Benefit**: Simplifies debugging of distributed microservices (Signaling, API, Workers) without needing a full cloud setup.
+
 ## 3. Operational Runbooks
 
 Standardized procedures for incident response.
