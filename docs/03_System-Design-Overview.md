@@ -1,6 +1,6 @@
 ---
 learning_level: "Advanced"
-prerequisites: ["System Design Fundamentals", "Cloud Architecture"]
+prerequisites: ["./01_Requirements.md", "System Design Fundamentals", "Cloud Architecture"]
 estimated_time: "90 minutes"
 learning_objectives:
   - "Analyze functional and non-functional requirements for a video conferencing app"
@@ -10,6 +10,7 @@ learning_objectives:
   - "Address concurrency challenges with WebRTC and SignalR"
   - "Analyze Transport Layer protocols for real-time media"
 related_topics:
+  builds_upon: ["./01_Requirements.md"]
   enables: ["./02_Detailed-Design.md"]
 ---
 
@@ -366,7 +367,9 @@ For implementation planning and execution:
 This repository follows a structured documentation flow for implementation:
 
 ```
-01_System-Design-Overview.md (This Document)
+01_Requirements.md (Requirements Specification)
+    ↓
+01_System-Design-Overview.md (This Document - High-Level Architecture)
     ↓
 02_Detailed-Design.md (Complete Architecture & Implementation)
     ↓

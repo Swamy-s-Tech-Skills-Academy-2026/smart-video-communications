@@ -6,6 +6,12 @@ A cloud-native video conferencing platform built with .NET 10 signaling, .NET As
 
 The system design and implementation details are documented in the `docs/` folder.
 
+### Phase 0: Requirements
+
+Complete functional and non-functional requirements specification.
+
+* [Requirements Specification](docs/01_Requirements.md)
+
 ### Phase 1: System Design Overview
 
 Foundational concepts, requirements, and high-level architecture.
