@@ -348,7 +348,7 @@ The following documents build upon this overview and provide in-depth technical 
 3. **[Scalability Patterns (Mesh vs. SFU vs. MCU)](./02_Detailed-Design-Part1-C.md)** - Deep dive into media routing architectures
 4. **[Operational Excellence (Observability & SLOs)](./02_Detailed-Design-Part1-D.md)** - Monitoring, metrics, and service level objectives
 5. **[Security Architecture (Zero Trust & E2EE)](./02_Detailed-Design-Part1-E.md)** - Security patterns and encryption strategies
-6. **[Data Models (SQL/Redis) & Signaling Contracts](./02_Detailed-Design-Part1-F.md)** - Core data models and WebSocket signaling contracts
+6. **[Data Models (SQL/Redis) & Signaling Contracts](./02_Detailed-Design-Part1-F-A.md)** - Core data models and WebSocket signaling contracts
 7. **[Advanced Workflows (Dynamic Switching, Recording, AI)](./02_Detailed-Design-Part1-G.md)** - Complex workflows and AI integration patterns
 8. **[Infrastructure, Scalability & Analytics](./02_Detailed-Design-Part1-H.md)** - Infrastructure design and scaling strategies
 
@@ -375,7 +375,7 @@ After completing the detailed design documents, proceed to:
     ↓
 02_Detailed-Design-Part1-E.md (Security Architecture)
     ↓
-02_Detailed-Design-Part1-F.md (Data Models & Signaling)
+02_Detailed-Design-Part1-F-A.md → 02_Detailed-Design-Part1-F-B.md (Data Models & Signaling)
     ↓
 02_Detailed-Design-Part1-G.md (Advanced Workflows)
     ↓

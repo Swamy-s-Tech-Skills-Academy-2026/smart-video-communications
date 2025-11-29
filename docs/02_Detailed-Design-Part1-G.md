@@ -1,13 +1,13 @@
 ---
 learning_level: "Advanced"
-prerequisites: ["./02_Detailed-Design-Part1-F.md"]
+prerequisites: ["./02_Detailed-Design-Part1-F-B.md"]
 estimated_time: "25 minutes"
 learning_objectives:
   - "Design the Dynamic Switching workflow (P2P <-> SFU)"
   - "Architect the Recording Pipeline (Logger -> Storage -> Merger)"
   - "Design the AI Worker architecture for Transcription and Summarization"
 related_topics:
-  builds_upon: ["./02_Detailed-Design-Part1-F.md"]
+  builds_upon: ["./02_Detailed-Design-Part1-F-B.md"]
   enables: ["./02_Detailed-Design-Part1-H.md"]
 ---
 

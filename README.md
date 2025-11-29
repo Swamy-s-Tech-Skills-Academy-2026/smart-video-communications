@@ -21,7 +21,7 @@ In-depth design of specific components, APIs, and advanced workflows.
 * [Scalability Patterns (Mesh vs. SFU vs. MCU)](docs/02_Detailed-Design-Part1-C.md)
 * [Operational Excellence (Observability & SLOs)](docs/02_Detailed-Design-Part1-D.md)
 * [Security Architecture (Zero Trust & E2EE)](docs/02_Detailed-Design-Part1-E.md)
-* [Data Models (SQL/Redis) & Signaling Contracts](docs/02_Detailed-Design-Part1-F.md)
+* [Data Models (SQL/Redis) & Signaling Contracts](docs/02_Detailed-Design-Part1-F-A.md) → [API Contracts & Redis Schema](docs/02_Detailed-Design-Part1-F-B.md)
 * [Advanced Workflows (Dynamic Switching, Recording, AI)](docs/02_Detailed-Design-Part1-G.md)
 * [Infrastructure, Scalability & Analytics](docs/02_Detailed-Design-Part1-H.md)
 

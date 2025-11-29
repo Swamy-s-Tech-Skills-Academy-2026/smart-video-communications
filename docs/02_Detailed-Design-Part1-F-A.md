@@ -1,12 +1,12 @@
 ---
 learning_level: "Advanced"
-prerequisites: ["./01_System-Design-Overview-Part1-B.md"]
+prerequisites: ["./01_System-Design-Overview.md"]
 estimated_time: "25 minutes"
 learning_objectives:
   - "Define the core Data Models for a Video Conferencing System"
   - "Understand the separation between Persistent and Ephemeral data"
 related_topics:
-  builds_upon: ["./01_System-Design-Overview-Part1-B.md"]
+  builds_upon: ["./01_System-Design-Overview.md"]
   enables: ["./02_Detailed-Design-Part1-F-B.md"]
 ---
 
@@ -69,4 +69,3 @@ These models exist only while a meeting is active.
   * `isMuted`: Boolean.
   * `isVideoOn`: Boolean.
   * `joinedAt`: Timestamp.
-

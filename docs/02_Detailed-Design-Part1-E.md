@@ -8,7 +8,7 @@ learning_objectives:
   - "Design compliant recording and storage workflows"
 related_topics:
   builds_upon: ["./02_Detailed-Design-Part1-D.md"]
-  enables: ["./02_Detailed-Design-Part1-F.md"]
+  enables: ["./02_Detailed-Design-Part1-F-A.md"]
 ---
 
 # Detailed Design: Security & Compliance
