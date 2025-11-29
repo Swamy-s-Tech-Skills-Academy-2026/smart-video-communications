@@ -45,6 +45,7 @@ related_topics:
     - [TURN (Traversal Using Relays around NAT)](#turn-traversal-using-relays-around-nat)
   - [3. The Signaling Process](#3-the-signaling-process)
   - [4. HTTP Tunneling for Restrictive Networks](#4-http-tunneling-for-restrictive-networks)
+- [Next Steps: Detailed Design & Implementation](#next-steps-detailed-design--implementation)
 
 ---
 
@@ -331,3 +332,54 @@ To keep the system usable in these "locked down" scenarios, we add an **HTTP tun
 
 Mentioning HTTP tunneling in an interview shows you have an answer for "secure corporate proxy" scenarios
 without compromising the UDP-first design for typical networks.
+
+---
+
+## Next Steps: Detailed Design & Implementation
+
+This overview document provides the foundation for understanding the system. To dive deeper into specific aspects, continue with the detailed design documents:
+
+### Phase 2: Detailed Design & Architecture
+
+The following documents build upon this overview and provide in-depth technical specifications:
+
+1. **[API Design (REST & gRPC)](./02_Detailed-Design-Part1-A.md)** - Define the REST/gRPC API surface and database schema
+2. **[Sequence Diagrams & Interaction Flows](./02_Detailed-Design-Part1-B.md)** - Visualize system interactions and capacity planning
+3. **[Scalability Patterns (Mesh vs. SFU vs. MCU)](./02_Detailed-Design-Part1-C.md)** - Deep dive into media routing architectures
+4. **[Operational Excellence (Observability & SLOs)](./02_Detailed-Design-Part1-D.md)** - Monitoring, metrics, and service level objectives
+5. **[Security Architecture (Zero Trust & E2EE)](./02_Detailed-Design-Part1-E.md)** - Security patterns and encryption strategies
+6. **[Data Models (SQL/Redis) & Signaling Contracts](./02_Detailed-Design-Part1-F.md)** - Core data models and WebSocket signaling contracts
+7. **[Advanced Workflows (Dynamic Switching, Recording, AI)](./02_Detailed-Design-Part1-G.md)** - Complex workflows and AI integration patterns
+8. **[Infrastructure, Scalability & Analytics](./02_Detailed-Design-Part1-H.md)** - Infrastructure design and scaling strategies
+
+### Phase 3: Implementation
+
+After completing the detailed design documents, proceed to:
+
+- **[Tech Stack & Engineering Strategy](./03_Implementation-Plan.md)** - Technology selection, microservices architecture, and CI/CD strategy
+
+---
+
+## Learning Path Summary
+
+```
+01_System-Design-Overview.md (This Document)
+    ↓
+02_Detailed-Design-Part1-A.md (APIs & Data Model)
+    ↓
+02_Detailed-Design-Part1-B.md (Sequences & Capacity)
+    ↓
+02_Detailed-Design-Part1-C.md (Scalability Patterns)
+    ↓
+02_Detailed-Design-Part1-D.md (Operational Excellence)
+    ↓
+02_Detailed-Design-Part1-E.md (Security Architecture)
+    ↓
+02_Detailed-Design-Part1-F.md (Data Models & Signaling)
+    ↓
+02_Detailed-Design-Part1-G.md (Advanced Workflows)
+    ↓
+02_Detailed-Design-Part1-H.md (Infrastructure & Analytics)
+    ↓
+03_Implementation-Plan.md (Tech Stack & Strategy)
+```
