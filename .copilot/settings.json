@@ -1,0 +1,9 @@
+{
+    "instructions": {
+        "description": "Project-specific instructions for GitHub Copilot",
+        "files": [
+            "docs/01_System-Design-Overview.md",
+            "docs/03_Implementation-Plan.md"
+        ]
+    }
+}

@@ -6,28 +6,42 @@ A cloud-native video conferencing platform built with .NET 10 signaling, .NET As
 
 The system design and implementation details are documented in the `docs/` folder.
 
+### Phase 0: Requirements
+
+Complete functional and non-functional requirements specification.
+
+* [Requirements Specification](docs/01_Requirements.md)
+
 ### Phase 1: System Design Overview
 
 Foundational concepts, requirements, and high-level architecture.
 
-* [Requirements Analysis & Capacity Estimation](docs/01_System-Design-Overview-Part1-A.md)
-* [High-Level Architecture & Data Layer](docs/01_System-Design-Overview-Part1-B.md)
-* [Concurrency, Signaling & WebRTC Fundamentals](docs/01_System-Design-Overview-Part1-C.md)
-* [Deep Dive: Transport Protocols (TCP/UDP/RTP)](docs/01_System-Design-Overview-Part1-D.md)
+* [System Design Overview: AI-Enhanced Video Conferencing](docs/02_System-Design-Overview.md)
 
 ### Phase 2: Detailed Design & Architecture
 
-In-depth design of specific components, APIs, and advanced workflows.
+Comprehensive technical specifications covering all aspects of the system design.
 
-* [API Design (REST & gRPC)](docs/02_Detailed-Design-Part1-A.md)
-* [Sequence Diagrams & Interaction Flows](docs/02_Detailed-Design-Part1-B.md)
-* [Scalability Patterns (Mesh vs. SFU vs. MCU)](docs/02_Detailed-Design-Part1-C.md)
-* [Operational Excellence (Observability & SLOs)](docs/02_Detailed-Design-Part1-D.md)
-* [Security Architecture (Zero Trust & E2EE)](docs/02_Detailed-Design-Part1-E.md)
-* [Data Models (SQL/Redis) & Signaling Contracts](docs/02_Detailed-Design-Part1-F.md)
-* [Advanced Workflows (Dynamic Switching, Recording, AI)](docs/02_Detailed-Design-Part1-G.md)
-* [Infrastructure, Scalability & Analytics](docs/02_Detailed-Design-Part1-H.md)
+* [Detailed Design: Complete Architecture & Implementation](docs/03_Detailed-Design.md)
 
 ### Implementation Plan
 
-* [Tech Stack & Engineering Strategy](docs/03_Implementation-Plan.md)
+* [Tech Stack & Engineering Strategy](docs/04_Implementation-Plan.md)
+
+### Additional Resources
+
+* [Implementation Readiness Assessment](docs/Implementation-Readiness-Assessment.md)
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+Copyright (c) 2025 **Swamy's Tech Skills Academy 2026**
+
+See the [LICENSE](LICENSE) file for full details.
+
+---
+
+> 🧠 **Smart Video Communications** — Designed and maintained by *Viswanatha Swamy P K*  
+> Empowering developers to evolve into visionary architects and technical leaders.  
+> © 2025 Swamy's Tech Skills Academy 2026
