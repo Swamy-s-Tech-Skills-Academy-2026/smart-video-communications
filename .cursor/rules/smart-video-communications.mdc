@@ -97,6 +97,16 @@ The system is decomposed into domain-specific services:
 
 ## Coding Standards
 
+### File and Folder Naming Conventions
+- **CRITICAL**: Never start file or folder names with `00_`
+- **REQUIRED**: Always start numbered files/folders with `01_` or higher
+- Use consistent numbering sequence: `01_`, `02_`, `03_`, etc.
+- Examples:
+  - ✅ `01_Requirements.md` (correct)
+  - ✅ `01_Project-Setup.md` (correct)
+  - ❌ `00_Introduction.md` (forbidden)
+  - ❌ `00_Workspace-Report.md` (forbidden)
+
 ### .NET Code
 - Use **.NET 10** features and patterns
 - Follow **ASP.NET Core** best practices
