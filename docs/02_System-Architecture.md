@@ -14,7 +14,7 @@ related_topics:
   enables: ["./03_Detailed-Design.md"]
 ---
 
-# System Design Overview: AI-Enhanced Video Conferencing
+# System Architecture: AI-Enhanced Video Conferencing
 
 > **Context**: This design reflects a whiteboard session for an AI Architect role. The goal is to design a scalable video conferencing system with integrated AI capabilities.
 
@@ -434,7 +434,7 @@ without compromising the UDP-first design for typical networks.
 
 ## Next Steps: Detailed Design & Implementation
 
-This overview document provides the foundation for system design. For implementation, proceed through the following documentation:
+This architecture document provides the foundation for system design. For implementation, proceed through the following documentation:
 
 ### Phase 2: Detailed Design & Architecture
 
@@ -465,9 +465,10 @@ This repository follows a structured documentation flow for implementation:
 ```
 01_Requirements.md (Requirements Specification)
     ↓
-02_System-Design-Overview.md (This Document - High-Level Architecture)
+02_System-Architecture.md (This Document - High-Level Architecture)
     ↓
 03_Detailed-Design.md (Complete Architecture & Implementation)
     ↓
 04_Implementation-Plan.md (Tech Stack & Strategy)
 ```
+

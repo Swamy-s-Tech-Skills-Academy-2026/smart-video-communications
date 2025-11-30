@@ -12,11 +12,11 @@ Complete functional and non-functional requirements specification.
 
 * [Requirements Specification](docs/01_Requirements.md)
 
-### Phase 1: System Design Overview
+### Phase 1: System Architecture
 
 Foundational concepts, requirements, and high-level architecture.
 
-* [System Design Overview: AI-Enhanced Video Conferencing](docs/02_System-Design-Overview.md)
+* [System Architecture: AI-Enhanced Video Conferencing](docs/02_System-Architecture.md)
 
 ### Phase 2: Detailed Design & Architecture
 

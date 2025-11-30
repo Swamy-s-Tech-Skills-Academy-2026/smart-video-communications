@@ -22,7 +22,7 @@ The platform supports real-time audio/video, SFU integration, recording, transcr
 The project follows a structured documentation flow. Always reference these documents when making architectural or design decisions:
 
 1. **docs/01_Requirements.md** - Functional and non-functional requirements, SLOs
-2. **docs/02_System-Design-Overview.md** - High-level architecture, WebRTC fundamentals
+2. **docs/02_System-Architecture.md** - High-level architecture, WebRTC fundamentals
 3. **docs/03_Detailed-Design.md** - Complete technical specifications (APIs, data models, security, workflows)
 4. **docs/04_Implementation-Plan.md** - Technology stack, microservices architecture, CI/CD
 
@@ -154,7 +154,7 @@ The system is decomposed into domain-specific services:
 
 ### When Implementing Features
 1. **Check requirements** in `docs/01_Requirements.md`
-2. **Review architecture** in `docs/02_System-Design-Overview.md`
+2. **Review architecture** in `docs/02_System-Architecture.md`
 3. **Follow detailed design** in `docs/03_Detailed-Design.md`
 4. **Use tech stack** from `docs/04_Implementation-Plan.md`
 
@@ -284,7 +284,7 @@ The system is decomposed into domain-specific services:
 
 When implementing features, always consider:
 - Does this meet the requirements in `docs/01_Requirements.md`?
-- Does this follow the architecture in `docs/02_System-Design-Overview.md`?
+- Does this follow the architecture in `docs/02_System-Architecture.md`?
 - Are there detailed specs in `docs/03_Detailed-Design.md`?
 - Is this using the tech stack from `docs/04_Implementation-Plan.md`?
 - Does this handle errors gracefully?

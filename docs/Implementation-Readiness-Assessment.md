@@ -6,7 +6,7 @@
 
 The existing documentation provides excellent **architectural and design foundation**:
 
-1. **System Design Overview** - Requirements, high-level architecture, WebRTC fundamentals
+1. **System Architecture** - Requirements, high-level architecture, WebRTC fundamentals
 2. **Detailed Design** - Complete technical specifications:
    - API endpoints with request/response examples
    - Data models (SQL and Redis)
