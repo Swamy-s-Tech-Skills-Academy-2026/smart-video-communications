@@ -274,37 +274,133 @@ Most devices sit behind a NAT (Network Address Translator) and do not have a pub
 
 ### 3. The Signaling Process
 
-Before media can flow, clients must exchange metadata via the Signaling Server (WebSocket).
+Before media can flow, clients must exchange metadata via the Signaling Server (WebSocket/SignalR). The process involves three main phases: **Signaling Setup**, **ICE Candidate Exchange**, and **Connection Establishment**.
 
-1. **Offer/Answer Exchange (SDP)**:
-   * **Caller** creates an **Offer** (Session Description Protocol) containing supported codecs (VP8, H.264), encryption keys, and media capabilities.
-   * **Callee** receives the Offer and responds with an **Answer** selecting the compatible parameters.
+#### Phase 1: Signaling Setup
 
-2. **ICE Candidate Exchange**:
-   * As clients discover their network paths (Host, Srflx, Relay), they send **ICE Candidates** to each other.
-   * Connectivity checks are performed to find the best path (usually UDP P2P > TCP P2P > TURN UDP > TURN TCP).
+1. **WebSocket Connection**: Both clients establish WebSocket connections to the Signaling Server.
+2. **RTCPeerConnection Creation**: Each client creates an `RTCPeerConnection` object.
+3. **Data Channel Creation** (if needed): The initiating client calls `createDataChannel()` for data exchange.
+4. **Offer Generation**: The initiating client creates an SDP Offer containing codecs (VP8, H.264), encryption keys, and media capabilities.
+5. **Local Description**: The client calls `setLocalDescription(offer)` to store its own session description.
+6. **Offer Exchange**: The Offer is sent via the Signaling Server to the other client.
+7. **Remote Description**: The receiving client calls `setRemoteDescription(offer)` to store the peer's session description.
+8. **Answer Generation**: The receiving client creates an SDP Answer selecting compatible parameters.
+9. **Answer Exchange**: The Answer is sent back via the Signaling Server and both clients complete their remote descriptions.
+
+#### Phase 2: ICE Candidate Exchange
+
+1. **STUN Server Query**: Each client queries STUN servers to discover public IP addresses and ports.
+2. **Candidate Gathering**: Clients gather ICE candidates (Host, Server Reflexive, Relay) and update their local descriptions.
+3. **Candidate Exchange**: ICE candidates are exchanged via the Signaling Server using `addIceCandidate()`.
+4. **Remote Description Update**: Each client updates its remote description with received candidates.
+
+#### Phase 3: Connection Establishment
+
+1. **STUN Binding**: Clients perform connectivity checks using STUN binding requests/responses.
+2. **Path Selection**: The ICE framework selects the best available path (UDP P2P > TCP P2P > TURN UDP > TURN TCP).
+3. **Connection State**: Once a path is established, `connectionState` becomes `'connected'`.
+4. **Media Flow**: Direct peer-to-peer media streams (SRTP over UDP) begin flowing.
+
+#### Detailed Sequence Diagram
 
 ```mermaid
 sequenceDiagram
-    participant A as Client A
-    participant S as Signaling Server
-    participant B as Client B
+    participant A as Client A<br/>(PEER 1)
+    participant WS as WebSocket<br/>(SignalR)
+    participant STUN1 as STUN Server
+    participant STUN2 as STUN Server
+    participant B as Client B<br/>(PEER 2)
     
-    Note over A, B: 1. SDP Exchange
-    A->>S: Offer (SDP)
-    S->>B: Offer (SDP)
-    B->>S: Answer (SDP)
-    S->>A: Answer (SDP)
+    Note over A,B: Phase 1: Signaling Setup
+    A->>WS: Connect WebSocket
+    B->>WS: Connect WebSocket
     
-    Note over A, B: 2. ICE Candidate Exchange
-    A->>S: ICE Candidate (A)
-    S->>B: ICE Candidate (A)
-    B->>S: ICE Candidate (B)
-    S->>A: ICE Candidate (B)
+    A->>A: Create RTCPeerConnection
+    A->>A: createDataChannel()
+    A->>A: Create Offer (SDP)
+    A->>A: setLocalDescription(offer)
+    A->>WS: Send Offer (SDP)
+    WS->>B: Push Offer (SDP)
+    B->>B: Create RTCPeerConnection
+    B->>B: setRemoteDescription(offer)
+    B->>B: Create Answer (SDP)
+    B->>B: setLocalDescription(answer)
+    B->>WS: Send Answer (SDP)
+    WS->>A: Push Answer (SDP)
+    A->>A: setRemoteDescription(answer)
     
-    Note over A, B: 3. P2P Media Flow
-    A-->>B: SRTP Media Stream (UDP)
+    Note over A,B: Phase 2: ICE Candidate Exchange
+    A->>STUN1: STUN Binding Request<br/>("Who am I?")
+    STUN1-->>A: Public IP:Port<br/>(e.g., 192.168.20.114:56808 UDP)
+    A->>A: Gather ICE Candidates<br/>(Host, Srflx, Relay)
+    A->>A: Update Local Description<br/>(set 'm=' flag)
+    A->>WS: Send ICE Candidates
+    WS->>B: Push ICE Candidates (A)
+    B->>B: addIceCandidate(candidates)
+    B->>B: Update Remote Description
+    
+    B->>STUN2: STUN Binding Request<br/>("Who am I?")
+    STUN2-->>B: Public IP:Port<br/>(e.g., 198.163.41.43:53010 UDP)
+    B->>B: Gather ICE Candidates<br/>(Host, Srflx, Relay)
+    B->>B: Update Local Description<br/>(set 'm=' flag)
+    B->>WS: Send ICE Candidates
+    WS->>A: Push ICE Candidates (B)
+    A->>A: addIceCandidate(candidates)
+    A->>A: Update Remote Description
+    B->>B: Register DataChannel Listener
+    
+    Note over A,B: Phase 3: Connection Establishment
+    A->>B: STUN Binding Request<br/>(with L-candidate + R-candidate)
+    B-->>A: STUN Binding Response
+    A->>A: connectionState = 'connected' ✅
+    B->>B: connectionState = 'connected' ✅
+    
+    Note over A,B: Phase 4: Media Flow
+    A-->>B: SRTP Media Stream (UDP)<br/>Direct P2P Connection
+    B-->>A: SRTP Media Stream (UDP)<br/>Direct P2P Connection
 ```
+
+#### Key Implementation Details
+
+**Client-Side (JavaScript/TypeScript)**:
+
+```javascript
+// 1. Create RTCPeerConnection
+const pc = new RTCPeerConnection({ iceServers: [...] });
+
+// 2. Create data channel (optional)
+const dataChannel = pc.createDataChannel('chat');
+
+// 3. Create and set local description
+const offer = await pc.createOffer();
+await pc.setLocalDescription(offer);
+// Send offer via WebSocket/SignalR
+
+// 4. Receive and set remote description
+await pc.setRemoteDescription(answer);
+
+// 5. Handle ICE candidates
+pc.onicecandidate = (event) => {
+  if (event.candidate) {
+    // Send candidate via WebSocket/SignalR
+  }
+};
+
+// 6. Monitor connection state
+pc.onconnectionstatechange = () => {
+  if (pc.connectionState === 'connected') {
+    // Connection established!
+  }
+};
+```
+
+**Server-Side (SignalR Hub)**:
+
+- Receives Offers/Answers and forwards them to target clients
+- Receives ICE candidates and forwards them to peers
+- Maintains WebSocket connections for real-time signaling
+- Validates tokens and manages room state in Redis
 
 ### 4. HTTP Tunneling for Restrictive Networks
 
