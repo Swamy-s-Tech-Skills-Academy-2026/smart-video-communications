@@ -31,6 +31,7 @@ Comprehensive technical specifications covering all aspects of the system design
 ### Additional Resources
 
 * [Implementation Readiness Assessment](docs/Implementation-Readiness-Assessment.md)
+* [Glossary](docs/Glossary.md) - Technical terms, acronyms, and domain-specific concepts
 
 ## 📜 License
 
