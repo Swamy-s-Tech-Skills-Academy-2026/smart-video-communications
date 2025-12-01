@@ -30,6 +30,7 @@
 ### 1.1 Core Communication
 
 #### FR-1.1.1: Real-Time Video Communication
+
 - **Description**: The system must support real-time bidirectional video streaming between participants.
 - **Acceptance Criteria**:
   - Support multiple video quality levels (720p minimum, with adaptive bitrate)
@@ -39,6 +40,7 @@
   - Minimum frame rate: 15 fps, target: 30 fps
 
 #### FR-1.1.2: Real-Time Audio Communication
+
 - **Description**: The system must support real-time bidirectional audio streaming.
 - **Acceptance Criteria**:
   - Audio quality: 64 kbps minimum
@@ -47,6 +49,7 @@
   - Audio-only mode when video is disabled
 
 #### FR-1.1.3: Text Chat
+
 - **Description**: The system must support real-time text messaging during meetings.
 - **Acceptance Criteria**:
   - Instant message delivery via WebSocket/SignalR
@@ -56,6 +59,7 @@
 ### 1.2 Collaboration Tools
 
 #### FR-1.2.1: File Sharing
+
 - **Description**: Participants must be able to share files during meetings.
 - **Acceptance Criteria**:
   - Upload files to blob storage
@@ -64,6 +68,7 @@
   - Maximum file size: 100 MB per file
 
 #### FR-1.2.2: Screen Sharing
+
 - **Description**: Participants must be able to share their screen with other participants.
 - **Acceptance Criteria**:
   - Full screen or application window sharing
@@ -73,6 +78,7 @@
 ### 1.3 AI & Intelligence
 
 #### FR-1.3.1: Real-Time Translation
+
 - **Description**: The system must provide live translation of speech to multiple languages.
 - **Acceptance Criteria**:
   - Support major languages (minimum 10 languages)
@@ -82,6 +88,7 @@
   - Translation accuracy > 90%
 
 #### FR-1.3.2: Transcription (Script Generation)
+
 - **Description**: The system must generate text transcripts of meetings.
 - **Acceptance Criteria**:
   - Real-time transcription display during meeting
@@ -91,6 +98,7 @@
   - Support for multiple languages
 
 #### FR-1.3.3: AI-Powered Meeting Insights
+
 - **Description**: The system must provide AI-generated meeting summaries and insights.
 - **Acceptance Criteria**:
   - Automatic summary generation after meeting
@@ -102,6 +110,7 @@
 ### 1.4 Integration & Compliance
 
 #### FR-1.4.1: Consent Management
+
 - **Description**: The system must manage user consent for recording and AI processing.
 - **Acceptance Criteria**:
   - Explicit consent required before recording starts
@@ -112,6 +121,7 @@
   - Users cannot join meeting without accepting required consents
 
 #### FR-1.4.2: External API
+
 - **Description**: The system must expose REST APIs for third-party integrations.
 - **Acceptance Criteria**:
   - RESTful API with OpenAPI documentation
@@ -123,6 +133,7 @@
 ### 1.5 Management & Analytics
 
 #### FR-1.5.1: Dashboard
+
 - **Description**: The system must provide a dashboard for analytics and user management.
 - **Acceptance Criteria**:
   - User management (create, update, delete users)
@@ -132,6 +143,7 @@
   - System health metrics
 
 #### FR-1.5.2: Meeting Management
+
 - **Description**: The system must support meeting scheduling and lifecycle management.
 - **Acceptance Criteria**:
   - Create scheduled meetings
@@ -147,6 +159,7 @@
 ### 2.1 Performance Requirements
 
 #### NFR-2.1.1: Latency
+
 - **Requirement**: Low latency for real-time media communication.
 - **Targets**:
   - Media latency (P95): < 250ms (rolling 5-minute window)
@@ -156,6 +169,7 @@
   - Join time: < 2 seconds from "Click Join" to "Media Connected"
 
 #### NFR-2.1.2: Throughput
+
 - **Requirement**: System must handle high request rates.
 - **Targets**:
   - Signaling/API layer: 60,000 requests/second (peak)
@@ -163,6 +177,7 @@
   - Support 100 million daily group calls (future scale)
 
 #### NFR-2.1.3: Packet Loss
+
 - **Requirement**: Minimize packet loss for quality media experience.
 - **Target**: < 2% packet loss per session
 - **Alert Threshold**: > 5% packet loss (sustained 1 minute) triggers critical alert
@@ -170,6 +185,7 @@
 ### 2.2 Scalability Requirements
 
 #### NFR-2.2.1: Concurrent Users
+
 - **Requirement**: Support scaling from small to large user bases.
 - **Targets**:
   - Initial: 2,000 concurrent users per hour
@@ -177,6 +193,7 @@
   - Auto-scaling based on load
 
 #### NFR-2.2.2: Meeting Size
+
 - **Requirement**: Support meetings of varying sizes.
 - **Targets**:
   - Small groups (≤5): P2P Mesh topology
@@ -185,6 +202,7 @@
   - Live streaming: Millions of viewers via CDN (HLS/DASH)
 
 #### NFR-2.2.3: Storage Scalability
+
 - **Requirement**: Handle large volumes of recordings and data.
 - **Targets**:
   - Daily storage: 100 TB/day (at scale)
@@ -195,11 +213,13 @@
 ### 2.3 Availability & Reliability
 
 #### NFR-2.3.1: System Availability
+
 - **Requirement**: High availability for core meeting services.
 - **Target**: 99.99% availability (4 nines)
 - **Measurement**: Monthly uptime
 
 #### NFR-2.3.2: Service Availability
+
 - **Requirement**: Individual service availability targets.
 - **Targets**:
   - Signaling Availability: 99.9% (monthly)
@@ -207,6 +227,7 @@
   - TURN Success Rate: > 99% (daily)
 
 #### NFR-2.3.3: Fault Tolerance
+
 - **Requirement**: System must handle component failures gracefully.
 - **Acceptance Criteria**:
   - Automatic failover for SFU nodes
@@ -217,6 +238,7 @@
 ### 2.4 Security Requirements
 
 #### NFR-2.4.1: Authentication
+
 - **Requirement**: Zero Trust security model with authentication for all connections.
 - **Acceptance Criteria**:
   - OAuth2/OIDC authentication via Azure AD/B2C
@@ -225,6 +247,7 @@
   - Multi-factor authentication support
 
 #### NFR-2.4.2: Authorization
+
 - **Requirement**: Role-based access control (RBAC).
 - **Acceptance Criteria**:
   - Host and Participant roles
@@ -233,6 +256,7 @@
   - Permission-based feature access
 
 #### NFR-2.4.3: Encryption
+
 - **Requirement**: End-to-end encryption for media and data.
 - **Acceptance Criteria**:
   - TLS 1.3 for all signaling (HTTPS/WSS)
@@ -242,6 +266,7 @@
   - Customer-Managed Keys (CMK) for storage
 
 #### NFR-2.4.4: Network Security
+
 - **Requirement**: Protect against attacks and unauthorized access.
 - **Acceptance Criteria**:
   - WAF (Web Application Firewall) for DDoS and Layer 7 protection
@@ -252,6 +277,7 @@
 ### 2.5 Compliance Requirements
 
 #### NFR-2.5.1: Data Privacy
+
 - **Requirement**: Comply with GDPR, CCPA, and other data privacy regulations.
 - **Acceptance Criteria**:
   - Explicit consent for recording and AI processing
@@ -261,6 +287,7 @@
   - Data processing agreements
 
 #### NFR-2.5.2: Data Residency
+
 - **Requirement**: Support regional data residency requirements.
 - **Acceptance Criteria**:
   - Media traffic stays within user's region
@@ -269,6 +296,7 @@
   - EU data stays in EU regions
 
 #### NFR-2.5.3: Audit Logging
+
 - **Requirement**: Comprehensive audit trail for compliance.
 - **Acceptance Criteria**:
   - Log all authentication attempts
@@ -280,6 +308,7 @@
   - Immutable audit logs
 
 #### NFR-2.5.4: PII Protection
+
 - **Requirement**: Protect personally identifiable information.
 - **Acceptance Criteria**:
   - PII redaction in transcripts (before storage)
@@ -290,6 +319,7 @@
 ### 2.6 Observability Requirements
 
 #### NFR-2.6.1: Metrics Collection
+
 - **Requirement**: Comprehensive metrics for system health and performance.
 - **Acceptance Criteria**:
   - Prometheus metrics for all services
@@ -298,6 +328,7 @@
   - Custom business metrics (active meetings, participants, recordings)
 
 #### NFR-2.6.2: Distributed Tracing
+
 - **Requirement**: End-to-end request tracing across services.
 - **Acceptance Criteria**:
   - OpenTelemetry integration
@@ -306,6 +337,7 @@
   - Trace AI processing pipeline
 
 #### NFR-2.6.3: Logging
+
 - **Requirement**: Structured logging for debugging and analysis.
 - **Acceptance Criteria**:
   - Structured logs (JSON format)
@@ -315,6 +347,7 @@
   - Log retention policies
 
 #### NFR-2.6.4: Alerting
+
 - **Requirement**: Proactive alerting for critical issues.
 - **Acceptance Criteria**:
   - Critical alerts: SFU CPU > 80%, Packet Loss > 5%
@@ -325,6 +358,7 @@
 ### 2.7 Operational Requirements
 
 #### NFR-2.7.1: Deployment
+
 - **Requirement**: Automated, reliable deployments.
 - **Acceptance Criteria**:
   - GitOps approach (ArgoCD/Flux)
@@ -334,6 +368,7 @@
   - Rollback capability
 
 #### NFR-2.7.2: Auto-Scaling
+
 - **Requirement**: Automatic scaling based on load.
 - **Acceptance Criteria**:
   - Horizontal Pod Autoscaler (HPA) for SFU pods
@@ -342,6 +377,7 @@
   - Scale-down policies to control costs
 
 #### NFR-2.7.3: Disaster Recovery
+
 - **Requirement**: Business continuity planning.
 - **Acceptance Criteria**:
   - Multi-region deployment capability
@@ -418,29 +454,34 @@
 ## 5. Acceptance Criteria Summary
 
 ### 5.1 Core Functionality
+
 - ✅ Real-time video, audio, and text chat
 - ✅ File sharing and screen sharing
 - ✅ Meeting management (create, join, end)
 - ✅ User authentication and authorization
 
 ### 5.2 AI Features
+
 - ✅ Real-time translation (10+ languages)
 - ✅ Real-time transcription
 - ✅ Post-meeting summaries and insights
 
 ### 5.3 Performance
+
 - ✅ < 250ms media latency (P95)
 - ✅ < 2s join time
 - ✅ < 2% packet loss
 - ✅ 99.9% signaling availability
 
 ### 5.4 Security
+
 - ✅ Zero Trust authentication
 - ✅ End-to-end encryption (optional)
 - ✅ TLS 1.3 for all signaling
 - ✅ WAF protection
 
 ### 5.5 Compliance
+
 - ✅ Explicit consent management
 - ✅ GDPR/CCPA compliance
 - ✅ Data residency controls
@@ -461,4 +502,3 @@
 - [System Architecture](./02_System-Architecture.md)
 - [Detailed Design](./03_Detailed-Design.md)
 - [Implementation Plan](./04_Implementation-Plan.md)
-

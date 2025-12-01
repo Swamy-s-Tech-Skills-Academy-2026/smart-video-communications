@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SVC.AppHost/SVC.AppHost.csproj" Id="517013ff-9e58-4873-b868-3b7f68c3140a" />
+    <Project Path="src/SVC.ServiceDefaults/SVC.ServiceDefaults.csproj" />
+  </Folder>
+</Solution>

@@ -82,12 +82,12 @@ The system exposes a set of RESTful APIs for management and signaling, while med
 
 #### Real-Time Signaling (WebSocket)
 
-*   **Endpoint**: `wss://api.meet.com/v1/signal`
-*   **Events**:
-    *   `join_room`: Client joins the signaling channel.
-    *   `offer` / `answer`: WebRTC SDP exchange.
-    *   `ice_candidate`: Network connectivity candidates.
-    *   `transcript_update`: Push real-time AI transcriptions to client.
+- **Endpoint**: `wss://api.meet.com/v1/signal`
+- **Events**:
+  - `join_room`: Client joins the signaling channel.
+  - `offer` / `answer`: WebRTC SDP exchange.
+  - `ice_candidate`: Network connectivity candidates.
+  - `transcript_update`: Push real-time AI transcriptions to client.
 
 ### 2. Data Model
 
@@ -147,10 +147,10 @@ erDiagram
 
 #### Schema Considerations
 
-*   **Sharding**: For scale (2,000+ concurrent meetings), we may shard the `Participant` and `Transcript` tables by `MeetingId`.
-*   **Indexes**:
-    *   `Meeting(hostId, startTime)`: For listing a user's meetings.
-    *   `Participant(meetingId, userId)`: For quick lookup of who is in a meeting.
+- **Sharding**: For scale (2,000+ concurrent meetings), we may shard the `Participant` and `Transcript` tables by `MeetingId`.
+- **Indexes**:
+  - `Meeting(hostId, startTime)`: For listing a user's meetings.
+  - `Participant(meetingId, userId)`: For quick lookup of who is in a meeting.
 
 ---
 
@@ -217,26 +217,30 @@ sequenceDiagram
 ### 4. Capacity Planning
 
 #### Assumptions
-*   **Concurrent Users**: 2,000
-*   **Video Quality**: 720p (approx. 1.5 Mbps per stream)
-*   **Audio Quality**: 64 kbps
-*   **Meeting Duration**: 1 hour average
+
+* **Concurrent Users**: 2,000
+- **Video Quality**: 720p (approx. 1.5 Mbps per stream)
+- **Audio Quality**: 64 kbps
+- **Meeting Duration**: 1 hour average
 
 #### Bandwidth Estimation
-*   **Per User**: 1.5 Mbps (Up) + 1.5 Mbps (Down) = 3 Mbps.
-*   **Total Bandwidth**: 2,000 users * 3 Mbps = **6,000 Mbps (6 Gbps)**.
-*   **Implication**: Requires high-throughput networking (Azure Standard/Premium Networking) and potentially CDN for static assets, though media traffic goes through SFU clusters.
+
+* **Per User**: 1.5 Mbps (Up) + 1.5 Mbps (Down) = 3 Mbps.
+- **Total Bandwidth**: 2,000 users * 3 Mbps = **6,000 Mbps (6 Gbps)**.
+- **Implication**: Requires high-throughput networking (Azure Standard/Premium Networking) and potentially CDN for static assets, though media traffic goes through SFU clusters.
 
 #### Storage Estimation (Recordings)
-*   **Video Size**: 1.5 Mbps * 3600 sec = 5,400 Mb ≈ **675 MB per hour**.
-*   **Total Storage Per Hour**: 2,000 users (assuming 500 meetings of 4 people) -> 500 recordings.
-*   **Volume**: 500 recordings * 675 MB = **337.5 GB per hour**.
-*   **Daily Volume (8 busy hours)**: ~2.7 TB / day.
-*   **Implication**: Aggressive lifecycle management (tiering to Cool/Archive) is critical to control costs.
+
+* **Video Size**: 1.5 Mbps * 3600 sec = 5,400 Mb ≈ **675 MB per hour**.
+- **Total Storage Per Hour**: 2,000 users (assuming 500 meetings of 4 people) -> 500 recordings.
+- **Volume**: 500 recordings * 675 MB = **337.5 GB per hour**.
+- **Daily Volume (8 busy hours)**: ~2.7 TB / day.
+- **Implication**: Aggressive lifecycle management (tiering to Cool/Archive) is critical to control costs.
 
 #### Compute (AI Services)
-*   **Translation**: 2,000 concurrent streams.
-*   **Quota**: Standard Azure AI tiers may throttle. Need **Provisioned Throughput Units (PTU)** for guaranteed capacity at this scale.
+
+* **Translation**: 2,000 concurrent streams.
+- **Quota**: Standard Azure AI tiers may throttle. Need **Provisioned Throughput Units (PTU)** for guaranteed capacity at this scale.
 
 ---
 
@@ -248,32 +252,32 @@ Scaling from 1:1 to N:N requires different architectural patterns based on the n
 
 #### A. Mesh Topology (Peer-to-Peer)
 
-* **Concept**: Every participant connects directly to every other participant.
-* **Bandwidth Cost**: $(N-1)$ uplinks and $(N-1)$ downlinks per user.
-* **Suitability**: Small groups (N ≤ 5).
-* **Pros**: Low latency, low server cost (only signaling).
-* **Cons**: CPU and bandwidth intensive for clients.
+- **Concept**: Every participant connects directly to every other participant.
+- **Bandwidth Cost**: $(N-1)$ uplinks and $(N-1)$ downlinks per user.
+- **Suitability**: Small groups (N ≤ 5).
+- **Pros**: Low latency, low server cost (only signaling).
+- **Cons**: CPU and bandwidth intensive for clients.
 
 #### B. SFU (Selective Forwarding Unit)
 
-* **Concept**: Participants send **one** uplink stream to a central server (SFU). The SFU forwards that stream to all other participants.
-* **Bandwidth Cost**: 1 uplink and $(N-1)$ downlinks per user.
-* **Suitability**: Medium to Large groups (5 < N < 50).
-* **Pros**: Reduces client uplink load. Enables features like recording and simulcast.
-* **Cons**: Higher server bandwidth costs.
+- **Concept**: Participants send **one** uplink stream to a central server (SFU). The SFU forwards that stream to all other participants.
+- **Bandwidth Cost**: 1 uplink and $(N-1)$ downlinks per user.
+- **Suitability**: Medium to Large groups (5 < N < 50).
+- **Pros**: Reduces client uplink load. Enables features like recording and simulcast.
+- **Cons**: Higher server bandwidth costs.
 
 #### C. MCU (Multipoint Control Unit)
 
-* **Concept**: The server mixes all incoming streams into a single composite video stream and sends it back.
-* **Bandwidth Cost**: 1 uplink and 1 downlink per user.
-* **Suitability**: Legacy systems or very low bandwidth clients.
-* **Pros**: Lowest client bandwidth.
-* **Cons**: Extremely high server CPU cost (decoding + mixing + encoding). High latency.
+- **Concept**: The server mixes all incoming streams into a single composite video stream and sends it back.
+- **Bandwidth Cost**: 1 uplink and 1 downlink per user.
+- **Suitability**: Legacy systems or very low bandwidth clients.
+- **Pros**: Lowest client bandwidth.
+- **Cons**: Extremely high server CPU cost (decoding + mixing + encoding). High latency.
 
 **Decision**: We will use a **Hybrid Approach**.
 
-* **N ≤ 5**: Attempt P2P Mesh.
-* **N > 5**: Switch to SFU (via Azure Communication Services or LiveKit).
+- **N ≤ 5**: Attempt P2P Mesh.
+- **N > 5**: Switch to SFU (via Azure Communication Services or LiveKit).
 
 ### 2. Live Streaming Architecture (One-to-Millions)
 
@@ -305,13 +309,13 @@ graph LR
 
 To support users with varying network conditions, we implement **Simulcast** (for SFU) and **ABR** (for HLS).
 
-* **Simulcast (WebRTC)**: The sender publishes multiple qualities (High, Med, Low) to the SFU. The SFU detects the receiver's bandwidth and forwards the appropriate stream.
-* **ABR (HLS/DASH)**: The player detects available bandwidth and automatically switches between quality levels defined in the manifest file.
+- **Simulcast (WebRTC)**: The sender publishes multiple qualities (High, Med, Low) to the SFU. The SFU detects the receiver's bandwidth and forwards the appropriate stream.
+- **ABR (HLS/DASH)**: The player detects available bandwidth and automatically switches between quality levels defined in the manifest file.
 
 #### Handling Network Fluctuations
 
-* **Client-Side**: The application monitors packet loss and RTT. If thresholds are exceeded, it requests a lower quality stream or disables video.
-* **Server-Side**: The SFU drops video packets (falling back to audio-only) if the downlink is congested.
+- **Client-Side**: The application monitors packet loss and RTT. If thresholds are exceeded, it requests a lower quality stream or disables video.
+- **Server-Side**: The SFU drops video packets (falling back to audio-only) if the downlink is congested.
 
 ---
 
@@ -332,8 +336,8 @@ and quality.
 
 **Alerting Thresholds**:
 
-* **Critical**: SFU CPU > 80%, Packet Loss > 5% (sustained 1 min).
-* **Warning**: TURN Bandwidth > 70% capacity, Join Latency > 2s.
+- **Critical**: SFU CPU > 80%, Packet Loss > 5% (sustained 1 min).
+- **Warning**: TURN Bandwidth > 70% capacity, Join Latency > 2s.
 
 ### 2. Observability Strategy
 
@@ -341,29 +345,29 @@ We employ a multi-layer monitoring approach to capture system health and user ex
 
 #### A. Client-Side Telemetry
 
-* **Mechanism**: WebRTC `getStats()` API.
-* **Metrics**: RTT (Round Trip Time), Jitter, Packet Loss, Bitrate, Frame Rate.
-* **Transport**: Sent via DataChannel to Signaling Server every 10-30 seconds.
+- **Mechanism**: WebRTC `getStats()` API.
+- **Metrics**: RTT (Round Trip Time), Jitter, Packet Loss, Bitrate, Frame Rate.
+- **Transport**: Sent via DataChannel to Signaling Server every 10-30 seconds.
 
 #### B. Server-Side Metrics (Prometheus)
 
-* **Signaling**: Active connections, Message rate, Redis latency, Token validation
+- **Signaling**: Active connections, Message rate, Redis latency, Token validation
   failures.
-* **SFU**: Aggregate forwarding bitrate, Active publishers/subscribers, CPU/Memory
+- **SFU**: Aggregate forwarding bitrate, Active publishers/subscribers, CPU/Memory
   usage.
-* **TURN**: Egress bandwidth, Active allocations, Auth failures.
+- **TURN**: Egress bandwidth, Active allocations, Auth failures.
 
 #### C. Distributed Tracing (OpenTelemetry)
 
-* Trace the full `join_room` flow: Client → Front Door → API Gateway →
+- Trace the full `join_room` flow: Client → Front Door → API Gateway →
   Signaling → Redis → SFU.
-* Identify bottlenecks in room creation or media negotiation.
+- Identify bottlenecks in room creation or media negotiation.
 
 #### D. Local Observability (.NET Aspire Dashboard)
 
-* **Tool**: **.NET Aspire Dashboard**.
-* **Usage**: Provides a real-time view of logs, traces, and metrics during local development and testing.
-* **Benefit**: Simplifies debugging of distributed microservices (Signaling, API, Workers) without needing a full cloud setup.
+- **Tool**: **.NET Aspire Dashboard**.
+- **Usage**: Provides a real-time view of logs, traces, and metrics during local development and testing.
+- **Benefit**: Simplifies debugging of distributed microservices (Signaling, API, Workers) without needing a full cloud setup.
 
 ### 3. Operational Runbooks
 
@@ -409,54 +413,54 @@ We adopt a **Zero Trust** model where every connection is authenticated.
 
 #### A. Identity Provider (IdP)
 
-* **Azure AD / B2C**: Handles user identity (OAuth2/OIDC).
-* **Flow**: Client logs in → Gets ID Token → Exchanges for **Short-Lived Join
+- **Azure AD / B2C**: Handles user identity (OAuth2/OIDC).
+- **Flow**: Client logs in → Gets ID Token → Exchanges for **Short-Lived Join
   Token**.
 
 #### B. Short-Lived Tokens
 
-* **Join Token**: JWT signed by the Auth Service, valid for 5-10 minutes. Contains
+- **Join Token**: JWT signed by the Auth Service, valid for 5-10 minutes. Contains
   `roomId`, `userId`, and `role` (Host/Participant).
-* **TURN Credentials**: Ephemeral username/password generated via REST API
+- **TURN Credentials**: Ephemeral username/password generated via REST API
   (Time-Limited). Prevents unauthorized relay usage.
 
 ### 2. Network Security
 
 #### A. Control Plane
 
-* **TLS 1.3**: All Signaling (HTTPS/WSS) traffic is encrypted.
-* **WAF (Web Application Firewall)**: Azure Front Door protects against DDoS and
+- **TLS 1.3**: All Signaling (HTTPS/WSS) traffic is encrypted.
+- **WAF (Web Application Firewall)**: Azure Front Door protects against DDoS and
   Layer 7 attacks.
-* **Private Link**: Backend services (Redis, SQL, Blob) are accessed only via
+- **Private Link**: Backend services (Redis, SQL, Blob) are accessed only via
   private endpoints, never public internet.
 
 #### B. Media Plane
 
-* **DTLS (Datagram Transport Layer Security)**: Key exchange for media streams.
-* **SRTP (Secure Real-time Transport Protocol)**: Encrypts the actual audio/video
+- **DTLS (Datagram Transport Layer Security)**: Key exchange for media streams.
+- **SRTP (Secure Real-time Transport Protocol)**: Encrypts the actual audio/video
   payload.
-* **E2EE (End-to-End Encryption)**: *Optional*. Keys exchanged between clients; SFU
+- **E2EE (End-to-End Encryption)**: *Optional*. Keys exchanged between clients; SFU
   cannot decrypt media. (Trade-off: No server-side recording/transcription).
 
 ### 3. Compliance & Data Privacy
 
 #### A. Recording Consent
 
-* **Workflow**: Host initiates recording → System broadcasts "Recording Started"
+- **Workflow**: Host initiates recording → System broadcasts "Recording Started"
   event → Clients display UI indicator.
-* **Storage**: Recordings stored in Azure Blob Storage with **Customer-Managed Keys
+- **Storage**: Recordings stored in Azure Blob Storage with **Customer-Managed Keys
   (CMK)**.
 
 #### B. Data Residency
 
-* **Regional Isolation**: Media traffic stays within the user's region (e.g., EU
+- **Regional Isolation**: Media traffic stays within the user's region (e.g., EU
   users routed to EU SFU clusters).
-* **Metadata**: Stored in geo-replicated databases compliant with GDPR/CCPA.
+- **Metadata**: Stored in geo-replicated databases compliant with GDPR/CCPA.
 
 #### C. Audit Logs
 
-* **Events**: Login attempts, Room creation, Recording access, Participant join/leave.
-* **Storage**: Azure Monitor / Log Analytics with retention policies.
+- **Events**: Login attempts, Room creation, Recording access, Participant join/leave.
+- **Storage**: Azure Monitor / Log Analytics with retention policies.
 
 ---
 
@@ -473,30 +477,30 @@ These models store long-term history and configuration.
 
 ##### `User`
 
-* **id** (UUID): Unique identifier.
-* **email** (String): User email.
-* **displayName** (String): Public name.
-* **tenantId** (UUID): For multi-tenant support.
-* **createdAt** (Timestamp).
+- **id** (UUID): Unique identifier.
+- **email** (String): User email.
+- **displayName** (String): Public name.
+- **tenantId** (UUID): For multi-tenant support.
+- **createdAt** (Timestamp).
 
 ##### `Room`
 
-* **id** (UUID): Unique meeting identifier.
-* **hostUserId** (UUID): Owner of the meeting.
-* **settings** (JSON):
-  * `isRecordingEnabled`: boolean
-  * `maxParticipants`: integer
-  * `allowedRoles`: ["host", "guest"]
-* **status** (Enum): `SCHEDULED`, `ACTIVE`, `COMPLETED`.
-* **createdAt** (Timestamp).
+- **id** (UUID): Unique meeting identifier.
+- **hostUserId** (UUID): Owner of the meeting.
+- **settings** (JSON):
+  - `isRecordingEnabled`: boolean
+  - `maxParticipants`: integer
+  - `allowedRoles`: ["host", "guest"]
+- **status** (Enum): `SCHEDULED`, `ACTIVE`, `COMPLETED`.
+- **createdAt** (Timestamp).
 
 ##### `Session` (Meeting Instance)
 
-* **id** (UUID): Unique session ID (a room can have multiple sessions over time).
-* **roomId** (UUID): FK to Room.
-* **startTime** (Timestamp).
-* **endTime** (Timestamp).
-* **recordingUrl** (String): Path to the final recording in Blob Storage.
+- **id** (UUID): Unique session ID (a room can have multiple sessions over time).
+- **roomId** (UUID): FK to Room.
+- **startTime** (Timestamp).
+- **endTime** (Timestamp).
+- **recordingUrl** (String): Path to the final recording in Blob Storage.
 
 #### B. Ephemeral Models (Redis)
 
@@ -504,21 +508,21 @@ These models exist only while a meeting is active.
 
 ##### `RoomState` (Hash)
 
-* **Key**: `room:{roomId}`
-* **Fields**:
-  * `sfuRegion`: "us-east-1" (Sticky region for the meeting)
-  * `participantCount`: Integer
-  * `isRecording`: Boolean
+- **Key**: `room:{roomId}`
+- **Fields**:
+  - `sfuRegion`: "us-east-1" (Sticky region for the meeting)
+  - `participantCount`: Integer
+  - `isRecording`: Boolean
 
 ##### `ParticipantState` (Hash)
 
-* **Key**: `room:{roomId}:participants`
-* **Fields**: `userId` -> JSON
-  * `connectionId`: SignalR/WebSocket connection ID.
-  * `role`: "host" | "attendee".
-  * `isMuted`: Boolean.
-  * `isVideoOn`: Boolean.
-  * `joinedAt`: Timestamp.
+- **Key**: `room:{roomId}:participants`
+- **Fields**: `userId` -> JSON
+  - `connectionId`: SignalR/WebSocket connection ID.
+  - `role`: "host" | "attendee".
+  - `isMuted`: Boolean.
+  - `isVideoOn`: Boolean.
+  - `joinedAt`: Timestamp.
 
 ---
 
@@ -545,50 +549,50 @@ Used for real-time session negotiation.
 ##### Client -> Server Events
 
 1. **`JoinRoom`**
-   * **Payload**: `{ "roomId": "...", "token": "..." }`
-   * **Action**: Server validates token, adds user to Redis, notifies others.
+   - **Payload**: `{ "roomId": "...", "token": "..." }`
+   - **Action**: Server validates token, adds user to Redis, notifies others.
 
 2. **`SendOffer`** (WebRTC SDP)
-   * **Payload**: `{ "targetUserId": "...", "sdp": "v=0..." }`
-   * **Action**: Server forwards SDP to the target user (P2P) or SFU.
+   - **Payload**: `{ "targetUserId": "...", "sdp": "v=0..." }`
+   - **Action**: Server forwards SDP to the target user (P2P) or SFU.
 
 3. **`SendAnswer`** (WebRTC SDP)
-   * **Payload**: `{ "targetUserId": "...", "sdp": "v=0..." }`
-   * **Action**: Server forwards Answer to the target user or SFU.
+   - **Payload**: `{ "targetUserId": "...", "sdp": "v=0..." }`
+   - **Action**: Server forwards Answer to the target user or SFU.
 
 4. **`SendIceCandidate`**
-   * **Payload**: `{ "targetUserId": "...", "candidate": "..." }`
-   * **Action**: Server forwards ICE candidate to assist connectivity.
+   - **Payload**: `{ "targetUserId": "...", "candidate": "..." }`
+   - **Action**: Server forwards ICE candidate to assist connectivity.
 
 5. **`UpdateState`**
-   * **Payload**: `{ "isMuted": true, "isVideoOn": false }`
-   * **Action**: Server updates Redis and broadcasts `StateChanged` event.
+   - **Payload**: `{ "isMuted": true, "isVideoOn": false }`
+   - **Action**: Server updates Redis and broadcasts `StateChanged` event.
 
 ##### Server -> Client Events
 
 1. **`ParticipantJoined`**
-   * **Payload**: `{ "userId": "...", "displayName": "..." }`
+   - **Payload**: `{ "userId": "...", "displayName": "..." }`
 
 2. **`ReceiveOffer` / `ReceiveAnswer`**
-   * **Payload**: `{ "sourceUserId": "...", "sdp": "..." }`
+   - **Payload**: `{ "sourceUserId": "...", "sdp": "..." }`
 
 3. **`IceCandidate`**
-   * **Payload**: `{ "sourceUserId": "...", "candidate": "..." }`
+   - **Payload**: `{ "sourceUserId": "...", "candidate": "..." }`
 
 4. **`SfuEndpoint`** (For SFU topology)
-   * **Payload**: `{ "ip": "10.0.0.1", "port": 40000, "transportId": "..." }`
-   * **Description**: Tells the client which SFU node to connect to.
+   - **Payload**: `{ "ip": "10.0.0.1", "port": 40000, "transportId": "..." }`
+   - **Description**: Tells the client which SFU node to connect to.
 
 ### 3. Redis Schema Design for Scale
 
 To handle millions of users, we structure Redis keys to allow atomic operations
 and easy cleanup.
 
-* **Room Expiry**: Set TTL on `room:{roomId}` keys. Refresh TTL on every
+- **Room Expiry**: Set TTL on `room:{roomId}` keys. Refresh TTL on every
   `JoinRoom` or `KeepAlive` event.
-* **Atomic Counts**: Use `HINCRBY` on `room:{roomId}` `participantCount` to
+- **Atomic Counts**: Use `HINCRBY` on `room:{roomId}` `participantCount` to
   maintain accurate numbers without race conditions.
-* **Geo-Distribution**: Use Redis Enterprise or Azure Managed Redis
+- **Geo-Distribution**: Use Redis Enterprise or Azure Managed Redis
   (Geo-Replication) if the control plane spans multiple regions, though
   typically we stick a room to a specific region to avoid conflict.
 
@@ -681,19 +685,19 @@ merging, and storing.
 #### Architecture
 
 1. **Logger Service (Ingest)**:
-   * Receives RTP packets from the SFU (or acts as a silent participant).
-   * Buffers packets in memory/local disk (Jitter Buffer).
-   * Writes raw chunks (e.g., `.webm` or `.ts`) to a **Temporary Storage**
+   - Receives RTP packets from the SFU (or acts as a silent participant).
+   - Buffers packets in memory/local disk (Jitter Buffer).
+   - Writes raw chunks (e.g., `.webm` or `.ts`) to a **Temporary Storage**
      (Hot Blob / DFS).
 2. **File Creator (Processor)**:
-   * Listens for `MeetingEnded` event.
-   * Retrieves all chunks for the `meetingId`.
-   * **Transcoding/Merging**: Uses FFmpeg to merge audio/video tracks and
+   - Listens for `MeetingEnded` event.
+   - Retrieves all chunks for the `meetingId`.
+   - **Transcoding/Merging**: Uses FFmpeg to merge audio/video tracks and
      multiple chunks into a single `.mp4` file.
-   * **Upload**: Pushes final file to **Permanent Storage** (Cold Blob).
+   - **Upload**: Pushes final file to **Permanent Storage** (Cold Blob).
 3. **Notification**:
-   * Updates `Session` record in DB with `recordingUrl`.
-   * Notifies users via Email/Push.
+   - Updates `Session` record in DB with `recordingUrl`.
+   - Notifies users via Email/Push.
 
 #### Data Flow
 
@@ -708,23 +712,23 @@ operate asynchronously.
 #### Components
 
 1. **Audio Ingest**:
-   * SFU forwards a dedicated audio stream (mixed or single user) to the
+   - SFU forwards a dedicated audio stream (mixed or single user) to the
      **AI Worker**.
-   * Protocol: RTP or gRPC stream.
+   - Protocol: RTP or gRPC stream.
 2. **Transcription Worker (FastAPI + Azure Speech)**:
-   * Receives audio stream.
-   * Uses **Azure Cognitive Services (Speech-to-Text)** or local **Whisper**
+   - Receives audio stream.
+   - Uses **Azure Cognitive Services (Speech-to-Text)** or local **Whisper**
      model.
-   * Generates real-time captions (sent back via WebSocket) and a final
+   - Generates real-time captions (sent back via WebSocket) and a final
      transcript (saved to DB).
 3. **Summarization Worker (LLM)**:
-   * Triggered after meeting ends.
-   * Reads the full transcript.
-   * Uses **Azure OpenAI (GPT-4)** to generate:
-     * Summary
-     * Action Items
-     * Sentiment Analysis
-   * Saves results to `MeetingMetadata` table.
+   - Triggered after meeting ends.
+   - Reads the full transcript.
+   - Uses **Azure OpenAI (GPT-4)** to generate:
+     - Summary
+     - Action Items
+     - Sentiment Analysis
+   - Saves results to `MeetingMetadata` table.
 
 #### Python Worker Architecture
 
@@ -743,11 +747,11 @@ graph LR
 
 #### Tech Stack for AI Workers
 
-* **Runtime**: Python 3.11+
-* **Framework**: FastAPI (for health checks/control), `aiortc` (for
+- **Runtime**: Python 3.11+
+- **Framework**: FastAPI (for health checks/control), `aiortc` (for
   WebRTC/RTP handling).
-* **Libraries**: `azure-cognitiveservices-speech`, `openai`, `langchain`.
-* **Deployment**: Kubernetes Pods (Autoscaled on CPU/GPU usage).
+- **Libraries**: `azure-cognitiveservices-speech`, `openai`, `langchain`.
+- **Deployment**: Kubernetes Pods (Autoscaled on CPU/GPU usage).
 
 ---
 
@@ -765,14 +769,14 @@ While UDP is the preferred transport for real-time media, enterprise firewalls a
 
 #### HTTP Tunneling Mechanism
 
-* **Concept**: Encapsulate media and signaling packets within standard HTTP/HTTPS requests.
-* **Implementation**:
-  * The client opens a persistent HTTP connection (or uses long-polling/WebSockets over 443).
-  * Media packets are base64 encoded (or binary) and sent as the HTTP body.
-  * The server (or a specialized Gateway) unwraps the packets and forwards them to the SFU/Media Server.
-* **Trade-offs**:
-  * **Pros**: Works through almost any firewall or proxy.
-  * **Cons**: High overhead (HTTP headers), TCP Head-of-Line blocking (latency spikes), increased CPU usage.
+- **Concept**: Encapsulate media and signaling packets within standard HTTP/HTTPS requests.
+- **Implementation**:
+  - The client opens a persistent HTTP connection (or uses long-polling/WebSockets over 443).
+  - Media packets are base64 encoded (or binary) and sent as the HTTP body.
+  - The server (or a specialized Gateway) unwraps the packets and forwards them to the SFU/Media Server.
+- **Trade-offs**:
+  - **Pros**: Works through almost any firewall or proxy.
+  - **Cons**: High overhead (HTTP headers), TCP Head-of-Line blocking (latency spikes), increased CPU usage.
 
 ### 2. Advanced Capacity Planning (The "Billion User" Scenario)
 
@@ -780,32 +784,32 @@ Designing for massive scale requires rigorous math. Let's estimate the capacity 
 
 #### A. Traffic Estimation
 
-* **Daily Calls**: 100 Million.
-* **Peak Traffic**: Assuming a 10-hour active window.
-  * $100,000,000 \text{ calls} / (10 \times 3600) \approx 2,777 \text{ calls/sec}$.
-  * If each call generates ~20 signaling requests (join, leave, mute, status), that's $\approx 56,000 \text{ requests/sec}$.
-* **Design Target**: Round up to **60,000 requests/sec** for the Signaling/API layer.
+- **Daily Calls**: 100 Million.
+- **Peak Traffic**: Assuming a 10-hour active window.
+  - $100,000,000 \text{ calls} / (10 \times 3600) \approx 2,777 \text{ calls/sec}$.
+  - If each call generates ~20 signaling requests (join, leave, mute, status), that's $\approx 56,000 \text{ requests/sec}$.
+- **Design Target**: Round up to **60,000 requests/sec** for the Signaling/API layer.
 
 #### B. Storage Estimation (Recordings)
 
-* **Assumptions**:
-  * 1% of calls are recorded.
-  * Average recording size: 100MB (compressed).
-  * Daily Recordings: $100,000,000 \times 0.01 = 1,000,000$ recordings.
-* **Daily Storage**: $1,000,000 \times 100 \text{ MB} = 100,000,000 \text{ MB} = 100 \text{ TB/day}$.
-* **Annual Storage**: $100 \text{ TB} \times 365 \approx 36.5 \text{ PB/year}$.
-* **Strategy**: Tiered Storage (Hot -> Cool -> Archive) is mandatory.
+- **Assumptions**:
+  - 1% of calls are recorded.
+  - Average recording size: 100MB (compressed).
+  - Daily Recordings: $100,000,000 \times 0.01 = 1,000,000$ recordings.
+- **Daily Storage**: $1,000,000 \times 100 \text{ MB} = 100,000,000 \text{ MB} = 100 \text{ TB/day}$.
+- **Annual Storage**: $100 \text{ TB} \times 365 \approx 36.5 \text{ PB/year}$.
+- **Strategy**: Tiered Storage (Hot -> Cool -> Archive) is mandatory.
 
 #### C. Bandwidth & Latency Targets
 
-* **Latency Budget**:
-  * **One-way Trip**: < 150ms is acceptable, but **< 64ms** is the target for "in-room" feel.
-  * **Round Trip (RTT)**: < 128ms.
-* **Bandwidth per Group Call (100 users)**:
-  * If using SFU with Simulcast (High: 1Mbps, Low: 100kbps).
-  * Ingress (Server): 100 users $\times$ 1Mbps = 100 Mbps.
-  * Egress (Server): 100 users $\times$ (1 High + 5 Thumbnails) $\approx$ 100 $\times$ 1.5Mbps = 150 Mbps.
-  * **Total per Call**: ~250 Mbps throughput.
+- **Latency Budget**:
+  - **One-way Trip**: < 150ms is acceptable, but **< 64ms** is the target for "in-room" feel.
+  - **Round Trip (RTT)**: < 128ms.
+- **Bandwidth per Group Call (100 users)**:
+  - If using SFU with Simulcast (High: 1Mbps, Low: 100kbps).
+  - Ingress (Server): 100 users $\times$ 1Mbps = 100 Mbps.
+  - Egress (Server): 100 users $\times$ (1 High + 5 Thumbnails) $\approx$ 100 $\times$ 1.5Mbps = 150 Mbps.
+  - **Total per Call**: ~250 Mbps throughput.
 
 ### 3. Analytics & Observability Pipeline
 
@@ -814,36 +818,36 @@ To maintain quality at this scale, we need a dedicated Big Data pipeline to anal
 #### Architecture
 
 1. **Data Ingestion**:
-   * Clients send QoS events (every 30s) and "Call End" summaries to a **WebSocket Handler**.
-   * Handler pushes events to a **Kafka** topic (`telemetry-events`).
+   - Clients send QoS events (every 30s) and "Call End" summaries to a **WebSocket Handler**.
+   - Handler pushes events to a **Kafka** topic (`telemetry-events`).
 
 2. **Processing Layer**:
-   * **Real-time (Flink/Spark Streaming)**: Detects network outages, bad releases, or regional failures. Alerts Ops immediately.
-   * **Batch (Hadoop/Spark)**: Aggregates daily trends, user retention, and feature usage.
+   - **Real-time (Flink/Spark Streaming)**: Detects network outages, bad releases, or regional failures. Alerts Ops immediately.
+   - **Batch (Hadoop/Spark)**: Aggregates daily trends, user retention, and feature usage.
 
 3. **Storage**:
-   * **Time-Series DB (InfluxDB/Prometheus)**: For operational metrics (CPU, Memory, Latency).
-   * **Data Lake (S3/HDFS)**: For raw event logs and long-term analysis.
+   - **Time-Series DB (InfluxDB/Prometheus)**: For operational metrics (CPU, Memory, Latency).
+   - **Data Lake (S3/HDFS)**: For raw event logs and long-term analysis.
 
 #### Key Metrics to Track
 
-* **Mean Opinion Score (MOS)**: Calculated from packet loss and jitter.
-* **Join Time**: Time from "Click Join" to "Media Connected".
-* **Reconnection Rate**: How often users drop and reconnect.
+- **Mean Opinion Score (MOS)**: Calculated from packet loss and jitter.
+- **Join Time**: Time from "Click Join" to "Media Connected".
+- **Reconnection Rate**: How often users drop and reconnect.
 
 ### 4. Hybrid Cloud Data Strategy
 
 At massive scale, a single database technology or cloud provider might not suffice. We can adopt a **Polyglot & Hybrid** persistence strategy.
 
-* **Metadata (AWS/Azure)**:
-  * **Users, Meetings, Schedules**: Hosted on managed Relational Databases (Aurora/SQL Database) for ACID compliance and high availability.
-  * **Sharding**: Sharded by `User_ID` or `Org_ID`.
+- **Metadata (AWS/Azure)**:
+  - **Users, Meetings, Schedules**: Hosted on managed Relational Databases (Aurora/SQL Database) for ACID compliance and high availability.
+  - **Sharding**: Sharded by `User_ID` or `Org_ID`.
 
-* **Media Storage (Object Store)**:
-  * **Recordings**: Stored in S3/Blob Storage. Cheaper and infinitely scalable.
+- **Media Storage (Object Store)**:
+  - **Recordings**: Stored in S3/Blob Storage. Cheaper and infinitely scalable.
 
-* **Specialized Resources (Oracle/Other)**:
-  * If the system serves specific verticals (e.g., Education), static resources or legacy data might reside in a specialized cloud or on-premise data center for compliance or cost reasons.
+- **Specialized Resources (Oracle/Other)**:
+  - If the system serves specific verticals (e.g., Education), static resources or legacy data might reside in a specialized cloud or on-premise data center for compliance or cost reasons.
 
 ---
 
@@ -852,4 +856,3 @@ At massive scale, a single database technology or cloud provider might not suffi
 This detailed design document provides comprehensive technical specifications for all aspects of the system. To proceed with implementation:
 
 - **[Tech Stack & Engineering Strategy](./04_Implementation-Plan.md)** - Technology selection, microservices architecture, and CI/CD strategy
-
