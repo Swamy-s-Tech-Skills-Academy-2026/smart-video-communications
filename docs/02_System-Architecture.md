@@ -62,25 +62,25 @@ Based on the whiteboard session, the system must support:
 
 3. **AI & Intelligence**:
 
-   * **Real-time Translation**: Live translation of speech.
-   * **Transcription (Script)**: Generating text transcripts of meetings.
+   - **Real-time Translation**: Live translation of speech.
+   - **Transcription (Script)**: Generating text transcripts of meetings.
 
 4. **Integration & Compliance**:
 
-   * **Consent**: Managing user consent for recording/AI processing.
-   * **External API**: Exposing functionality for third-party integrations.
+   - **Consent**: Managing user consent for recording/AI processing.
+   - **External API**: Exposing functionality for third-party integrations.
 
 5. **Management**:
 
-   * **Dashboard**: For analytics and user management.
+   - **Dashboard**: For analytics and user management.
 
 ### Non-Functional Requirements (NFR)
 
-* **Scale**: Support **2,000 concurrent users** per hour.
-* **Latency**: Low latency for real-time media (< 200ms).
-* **Observability**: Comprehensive metrics and monitoring.
-* **Availability**: High availability (99.99%) for core meeting services.
-* **Security**: End-to-end encryption and role-based access control (RBAC).
+- **Scale**: Support **2,000 concurrent users** per hour.
+- **Latency**: Low latency for real-time media (< 200ms).
+- **Observability**: Comprehensive metrics and monitoring.
+- **Availability**: High availability (99.99%) for core meeting services.
+- **Security**: End-to-end encryption and role-based access control (RBAC).
 
 ## Part 2: High-Level Architecture Components
 
@@ -88,57 +88,57 @@ The proposed architecture consists of the following key components:
 
 ### Client Layer
 
-* **Web / UI**: The frontend interface (React/Angular) for users to join meetings.
-* **Mobile App**: Native iOS/Android apps.
-* **SDKs**: Client SDKs for handling media streams (WebRTC) and signaling.
+- **Web / UI**: The frontend interface (React/Angular) for users to join meetings.
+- **Mobile App**: Native iOS/Android apps.
+- **SDKs**: Client SDKs for handling media streams (WebRTC) and signaling.
 
 ### Identity & Security
 
-* **Identity System**: Manages User Login and authentication.
-  * **Technology**: Azure AD / Entra ID, Auth0, or Keycloak.
-  * **Flow**: OIDC/OAuth2 for secure token-based access.
-* **Consent Management**: Module to handle user permissions.
-  * **Critical for AI**: Users must explicitly opt-in for recording and AI analysis (GDPR/CCPA compliance).
-  * **Granularity**: Consent per meeting or per organization.
+- **Identity System**: Manages User Login and authentication.
+  - **Technology**: Azure AD / Entra ID, Auth0, or Keycloak.
+  - **Flow**: OIDC/OAuth2 for secure token-based access.
+- **Consent Management**: Module to handle user permissions.
+  - **Critical for AI**: Users must explicitly opt-in for recording and AI analysis (GDPR/CCPA compliance).
+  - **Granularity**: Consent per meeting or per organization.
 
 ### API & Orchestration
 
-* **APIG (API Gateway)**: Entry point for all client requests.
-  * **Responsibilities**: Routing, Rate Limiting, SSL Termination, Authentication verification.
-  * **Technology**: Azure API Management, Kong, or Nginx.
-* **MT (Multi-tenancy)**: Architecture support for serving multiple distinct customers/organizations.
-  * **Isolation**: Logical isolation of data and configuration per tenant.
+- **APIG (API Gateway)**: Entry point for all client requests.
+  - **Responsibilities**: Routing, Rate Limiting, SSL Termination, Authentication verification.
+  - **Technology**: Azure API Management, Kong, or Nginx.
+- **MT (Multi-tenancy)**: Architecture support for serving multiple distinct customers/organizations.
+  - **Isolation**: Logical isolation of data and configuration per tenant.
 
 ### Data & Storage
 
-* **Postgres**: Relational database for structured data.
-  * **Use Cases**: User profiles, Meeting metadata (start/end time, participants), Chat logs, Tenant config.
-  * **Scaling**: Read replicas for high read traffic (e.g., dashboard views).
-* **Blob Storage**: Object storage for unstructured data.
-  * **Use Cases**: Video recordings (MP4/WebM), Shared files, Transcripts.
-  * **Technology**: Azure Blob Storage / AWS S3.
-  * **Lifecycle**: Hot tier for recent meetings, Cool/Archive tier for older recordings.
-* **Redis**: In-memory cache.
-  * **Use Cases**: Session state, real-time presence (who is online), meeting status.
+- **Postgres**: Relational database for structured data.
+  - **Use Cases**: User profiles, Meeting metadata (start/end time, participants), Chat logs, Tenant config.
+  - **Scaling**: Read replicas for high read traffic (e.g., dashboard views).
+- **Blob Storage**: Object storage for unstructured data.
+  - **Use Cases**: Video recordings (MP4/WebM), Shared files, Transcripts.
+  - **Technology**: Azure Blob Storage / AWS S3.
+  - **Lifecycle**: Hot tier for recent meetings, Cool/Archive tier for older recordings.
+- **Redis**: In-memory cache.
+  - **Use Cases**: Session state, real-time presence (who is online), meeting status.
 
 ### AI Services (The "AI Architect" Focus)
 
-* **Azure AI Services**:
-  * **Speech-to-Text**: For real-time transcription.
-    * **Pattern**: Stream audio chunks -> STT API -> Text stream.
-  * **Translation**: For live language translation.
-    * **Pattern**: Text stream -> Translation API -> Translated Text -> Broadcast to clients.
-  * **Content Safety**: For moderating text/audio.
-    * **Use Case**: Detect PII or toxic language in real-time.
+- **Azure AI Services**:
+  - **Speech-to-Text**: For real-time transcription.
+    - **Pattern**: Stream audio chunks -> STT API -> Text stream.
+  - **Translation**: For live language translation.
+    - **Pattern**: Text stream -> Translation API -> Translated Text -> Broadcast to clients.
+  - **Content Safety**: For moderating text/audio.
+    - **Use Case**: Detect PII or toxic language in real-time.
 
 ### Observability
 
-* **Prometheus**: Metric collection.
-  * **Metrics**: QPS, Latency, Error rates, Active meetings, Connected users.
-* **Grafana**: Visualization.
-  * **Dashboards**: "System Health", "AI Usage Costs", "Tenant Usage".
-* **Distributed Tracing**: Jaeger / Azure Monitor.
-  * **Goal**: Trace a request from Client -> Gateway -> Meeting Service -> AI Service.
+- **Prometheus**: Metric collection.
+  - **Metrics**: QPS, Latency, Error rates, Active meetings, Connected users.
+- **Grafana**: Visualization.
+  - **Dashboards**: "System Health", "AI Usage Costs", "Tenant Usage".
+- **Distributed Tracing**: Jaeger / Azure Monitor.
+  - **Goal**: Trace a request from Client -> Gateway -> Meeting Service -> AI Service.
 
 ### Architecture Diagram (Mermaid)
 
@@ -191,39 +191,39 @@ graph TD
 
 #### Handling Concurrency & Real-Time Media
 
-* **Challenge**: Supporting 2,000 concurrent users with low latency.
-* **Solution**:
-  * **WebRTC**: Use WebRTC for peer-to-peer (P2P) media streaming for small groups (1:1 or small teams).
-  * **SFU (Selective Forwarding Unit)**: For larger meetings, use an SFU (like Mediasoup or Jitsi) to route media streams centrally. This reduces client bandwidth.
-  * **SignalR / WebSockets**: For signaling (setting up the call) and real-time chat/events.
-  * **Horizontal Scaling**: Stateless signaling servers scaled behind a load balancer. Sticky sessions may be needed for WebSocket connections.
+- **Challenge**: Supporting 2,000 concurrent users with low latency.
+- **Solution**:
+  - **WebRTC**: Use WebRTC for peer-to-peer (P2P) media streaming for small groups (1:1 or small teams).
+  - **SFU (Selective Forwarding Unit)**: For larger meetings, use an SFU (like Mediasoup or Jitsi) to route media streams centrally. This reduces client bandwidth.
+  - **SignalR / WebSockets**: For signaling (setting up the call) and real-time chat/events.
+  - **Horizontal Scaling**: Stateless signaling servers scaled behind a load balancer. Sticky sessions may be needed for WebSocket connections.
 
 #### AI Latency & Streaming
 
-* **Challenge**: Real-time translation must not introduce noticeable lag (lip-sync issues).
-* **Solution**:
-  * **Streaming APIs**: Use gRPC or WebSocket-based streaming APIs for Speech-to-Text (STT). Do not wait for a full sentence to finish; process audio chunks (e.g., 100ms).
-  * **Edge Deployment**: Deploy AI models closer to the user (if using custom models) or use region-specific Azure AI endpoints.
-  * **Optimistic UI**: Display tentative transcripts immediately and correct them as the model refines confidence.
+- **Challenge**: Real-time translation must not introduce noticeable lag (lip-sync issues).
+- **Solution**:
+  - **Streaming APIs**: Use gRPC or WebSocket-based streaming APIs for Speech-to-Text (STT). Do not wait for a full sentence to finish; process audio chunks (e.g., 100ms).
+  - **Edge Deployment**: Deploy AI models closer to the user (if using custom models) or use region-specific Azure AI endpoints.
+  - **Optimistic UI**: Display tentative transcripts immediately and correct them as the model refines confidence.
 
 #### Data Privacy & Consent
 
-* **Challenge**: AI processing involves sending voice/text to cloud services.
-* **Solution**:
-  * **Explicit Consent**: "This meeting is being recorded/analyzed." Pop-up must block join until accepted.
-  * **PII Redaction**: Use Azure AI Content Safety to detect and redact PII (names, phone numbers) from transcripts *before* storage.
-  * **Ephemeral Processing**: Ensure audio sent to AI services is not stored by the provider (zero data retention policy).
+- **Challenge**: AI processing involves sending voice/text to cloud services.
+- **Solution**:
+  - **Explicit Consent**: "This meeting is being recorded/analyzed." Pop-up must block join until accepted.
+  - **PII Redaction**: Use Azure AI Content Safety to detect and redact PII (names, phone numbers) from transcripts *before* storage.
+  - **Ephemeral Processing**: Ensure audio sent to AI services is not stored by the provider (zero data retention policy).
 
 #### Storage Costs & Lifecycle
 
-* **Challenge**: Storing HD video recordings is expensive.
-* **Solution**:
-  * **Tiering**:
-    * **Hot**: First 30 days (instant access).
-    * **Cool**: 30-90 days (slightly lower cost, millisecond access).
-    * **Archive**: > 90 days (lowest cost, hours to retrieve).
-  * **Transcoding**: Compress videos after the meeting ends (e.g., convert raw stream to H.264/H.265).
-  * **Retention Policy**: Auto-delete recordings after X days based on tenant configuration.
+- **Challenge**: Storing HD video recordings is expensive.
+- **Solution**:
+  - **Tiering**:
+    - **Hot**: First 30 days (instant access).
+    - **Cool**: 30-90 days (slightly lower cost, millisecond access).
+    - **Archive**: > 90 days (lowest cost, hours to retrieve).
+  - **Transcoding**: Compress videos after the meeting ends (e.g., convert raw stream to H.264/H.265).
+  - **Retention Policy**: Auto-delete recordings after X days based on tenant configuration.
 
 ## Part 4: Deep Dive: Transport Protocols & Connectivity
 
@@ -233,22 +233,22 @@ For a video conferencing system, the choice of transport protocol is critical fo
 
 #### TCP (Transmission Control Protocol)
 
-* **Characteristics**: Connection-oriented, reliable, ordered delivery.
-* **Mechanism**: Uses a 3-way handshake to establish connection. Retransmits lost packets (Automatic Repeat Request - ARQ).
-* **Suitability**: Ideal for **Signaling** (call setup, user status) where data integrity is paramount.
-* **Drawback for Media**: The retransmission mechanism introduces latency (Head-of-Line blocking). In real-time video, a delayed packet is worse than a lost packet.
+- **Characteristics**: Connection-oriented, reliable, ordered delivery.
+- **Mechanism**: Uses a 3-way handshake to establish connection. Retransmits lost packets (Automatic Repeat Request - ARQ).
+- **Suitability**: Ideal for **Signaling** (call setup, user status) where data integrity is paramount.
+- **Drawback for Media**: The retransmission mechanism introduces latency (Head-of-Line blocking). In real-time video, a delayed packet is worse than a lost packet.
 
 #### UDP (User Datagram Protocol)
 
-* **Characteristics**: Connectionless, unreliable, unordered delivery.
-* **Mechanism**: "Fire and forget". No guarantee of delivery or order. Lower header overhead (8 bytes vs. 20+ bytes for TCP).
-* **Suitability**: Ideal for **Media Streaming** (Audio/Video).
-* **Why**: If a video frame is lost, it's better to skip it and render the next one than to pause the stream to wait for retransmission.
+- **Characteristics**: Connectionless, unreliable, unordered delivery.
+- **Mechanism**: "Fire and forget". No guarantee of delivery or order. Lower header overhead (8 bytes vs. 20+ bytes for TCP).
+- **Suitability**: Ideal for **Media Streaming** (Audio/Video).
+- **Why**: If a video frame is lost, it's better to skip it and render the next one than to pause the stream to wait for retransmission.
 
 **Decision**:
 
-* **Signaling**: Secure WebSockets (WSS) over TCP/TLS.
-* **Media**: SRTP (Secure Real-time Transport Protocol) over UDP.
+- **Signaling**: Secure WebSockets (WSS) over TCP/TLS.
+- **Media**: SRTP (Secure Real-time Transport Protocol) over UDP.
 
 ### 2. Connectivity & NAT Traversal
 
@@ -256,21 +256,21 @@ Most devices sit behind a NAT (Network Address Translator) and do not have a pub
 
 #### STUN (Session Traversal Utilities for NAT)
 
-* **Role**: Helps a client discover its own public IP address and port.
-* **Flow**:
+- **Role**: Helps a client discover its own public IP address and port.
+- **Flow**:
   1. Client A sends a request to a public STUN server.
   2. STUN server responds with the IP:Port it saw the request come from.
   3. Client A shares this "Server Reflexive Candidate" with Client B via Signaling.
-* **Limitation**: Fails with **Symmetric NATs**, where the router assigns different ports for different destinations.
+- **Limitation**: Fails with **Symmetric NATs**, where the router assigns different ports for different destinations.
 
 #### TURN (Traversal Using Relays around NAT)
 
-* **Role**: Acts as a media relay server when P2P fails.
-* **Flow**:
+- **Role**: Acts as a media relay server when P2P fails.
+- **Flow**:
   1. If STUN fails (e.g., Symmetric NAT or restrictive firewall), Client A connects to a TURN server.
   2. TURN server allocates a public IP:Port for Client A.
   3. All media traffic is routed through the TURN server.
-* **Trade-off**: Increases latency and server bandwidth costs, but guarantees connectivity.
+- **Trade-off**: Increases latency and server bandwidth costs, but guarantees connectivity.
 
 ### 3. The Signaling Process
 
@@ -410,21 +410,21 @@ establish a working media path.
 
 To keep the system usable in these "locked down" scenarios, we add an **HTTP tunneling** fallback:
 
-* **Idea**: Encapsulate signaling and, in extreme cases, media packets inside HTTPS requests that look like
+- **Idea**: Encapsulate signaling and, in extreme cases, media packets inside HTTPS requests that look like
   regular web traffic to the proxy.
-* **Path**:
-  * Client connects to an HTTP tunnel endpoint over `HTTPS :443` (often the same origin as the web app or a
+- **Path**:
+  - Client connects to an HTTP tunnel endpoint over `HTTPS :443` (often the same origin as the web app or a
     closely related domain).
-  * The tunnel service forwards traffic to the appropriate media gateway or SFU over an internal network path
+  - The tunnel service forwards traffic to the appropriate media gateway or SFU over an internal network path
     that is not subject to the same restrictions.
-* **Trade-offs**:
-  * Higher latency and jitter compared to native UDP, since packets traverse HTTP stacks and may suffer from
+- **Trade-offs**:
+  - Higher latency and jitter compared to native UDP, since packets traverse HTTP stacks and may suffer from
     head-of-line blocking.
-  * Increased bandwidth and compute cost, because every packet is serialized through an HTTP relay.
-* **Usage policy**:
-  * Treat HTTP tunneling as a **last resort**: only enable when standard ICE candidates (P2P via STUN/TURN)
+  - Increased bandwidth and compute cost, because every packet is serialized through an HTTP relay.
+- **Usage policy**:
+  - Treat HTTP tunneling as a **last resort**: only enable when standard ICE candidates (P2P via STUN/TURN)
     fail, or for specific high-security tenants that require it.
-  * Expose configuration toggles per tenant/region so organizations can decide whether the extra reliability
+  - Expose configuration toggles per tenant/region so organizations can decide whether the extra reliability
     is worth the additional cost.
 
 Mentioning HTTP tunneling in an interview shows you have an answer for "secure corporate proxy" scenarios
@@ -440,7 +440,7 @@ This architecture document provides the foundation for system design. For implem
 
 A comprehensive document covering all detailed design aspects:
 
-* **[Detailed Design: Complete Architecture & Implementation](./03_Detailed-Design.md)** - Complete technical specifications including:
+- **[Detailed Design: Complete Architecture & Implementation](./03_Detailed-Design.md)** - Complete technical specifications including:
   - API Design & Data Models
   - Sequence Diagrams & Capacity Planning
   - Scalability Patterns (Mesh/SFU/MCU)
@@ -471,4 +471,3 @@ This repository follows a structured documentation flow for implementation:
     ↓
 04_Implementation-Plan.md (Tech Stack & Strategy)
 ```
-
