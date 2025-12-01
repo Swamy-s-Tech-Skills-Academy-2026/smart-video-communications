@@ -108,3 +108,46 @@ Real-time systems require specialized testing beyond standard unit tests.
 * **SFU Saturation**: If CPU > 80%, the autoscaler adds nodes. If capacity is maxed, the Load Balancer stops routing new rooms to that region.
 * **Certificate Rotation**: Automated via Cert-Manager (Let's Encrypt) or Key Vault rotation policies.
 * **Incident Response**: PagerDuty integration for critical alerts (Signaling down, High Packet Loss).
+
+## 6. Implementation Roadmap (Phased Approach)
+
+We will execute this project in four distinct phases to ensure incremental value delivery and risk management.
+
+### Phase 1: Foundation & P2P (Weeks 1-4)
+
+**Goal**: Establish the Control Plane and enable 1:1 video calls.
+
+* [ ] **Scaffold Solution**: Initialize .NET Aspire 13 solution with Service Defaults.
+* [ ] **Signaling Service**: Implement SignalR Hubs for room management and SDP exchange.
+* [ ] **Client SDK**: Create a basic React/TypeScript client with `RTCPeerConnection`.
+* [ ] **P2P Mesh**: Enable direct 1:1 audio/video calls (Mesh topology).
+* [ ] **Infrastructure**: Deploy basic AKS cluster and Azure SQL via Bicep.
+
+### Phase 2: Media Plane & SFU (Weeks 5-8)
+
+**Goal**: Scale to group calls using a Selective Forwarding Unit.
+
+* [ ] **Media Controller**: Implement Node.js service to manage Mediasoup workers.
+* [ ] **SFU Deployment**: Deploy Mediasoup to AKS with Host Networking.
+* [ ] **Client Integration**: Update client to consume SFU streams (Producer/Consumer model).
+* [ ] **TURN Server**: Deploy Coturn on Azure VMSS for NAT traversal.
+* [ ] **Load Balancing**: Implement "Least Loaded" strategy for assigning rooms to SFU nodes.
+
+### Phase 3: AI Services & Advanced Features (Weeks 9-12)
+
+**Goal**: Add intelligence and recording capabilities.
+
+* [ ] **Recording Service**: Implement Python worker to capture RTP streams and save to Blob Storage.
+* [ ] **Transcription**: Integrate Azure AI Speech SDK for real-time speech-to-text.
+* [ ] **Translation**: Implement real-time text translation pipeline.
+* [ ] **Meeting Insights**: Create background job to generate summaries using Azure OpenAI.
+
+### Phase 4: Production Readiness (Weeks 13-16)
+
+**Goal**: Harden security, observability, and scale.
+
+* [ ] **Auth Integration**: Enforce Azure AD B2C authentication for all endpoints.
+* [ ] **Observability**: Configure OpenTelemetry dashboards in Azure Monitor/Grafana.
+* [ ] **Load Testing**: Run synthetic load tests (2k concurrent users) using `aiortc`.
+* [ ] **Chaos Testing**: Validate reconnection logic during pod failures.
+* [ ] **Documentation**: Finalize API docs (Swagger) and user guides.
